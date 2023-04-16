@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="@string/tool_notification_text"
+        android:icon="@drawable/notifications"
+        android:id="@+id/tool_notifications"
+        app:showAsAction="ifRoom"/>
+    <item android:title="@string/tool_settings_text"
+        android:id="@+id/tool_settings"/>
+    <item android:title="@string/tool_ads_text"
+        android:id="@+id/tool_ads"/>
+    <item android:title="@string/tool_share_text"
+        android:id="@+id/tool_share"/>
+    <item android:title="@string/tool_about_text"
+        android:id="@+id/tool_about"/>
+    <item android:title="Выйти"
+        android:id="@+id/tool_logout"/>
+
+
+</menu>

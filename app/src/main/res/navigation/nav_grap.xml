@@ -12,6 +12,12 @@
         <action
             android:id="@+id/action_mainFragment_to_authenticationStep1Fragment"
             app:destination="@id/authenticationStep1Fragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_appFragment"
+            app:destination="@id/appFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_shareFragment"
+            app:destination="@id/shareFragment" />
     </fragment>
     <fragment
         android:id="@+id/authenticationStep1Fragment"
@@ -34,5 +40,29 @@
         <action
             android:id="@+id/action_authenticationStep2Fragment2_to_authenticationStep1Fragment"
             app:destination="@id/authenticationStep1Fragment" />
+        <action
+            android:id="@+id/action_authenticationStep2Fragment2_to_appFragment"
+            app:destination="@id/appFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/appFragment"
+        android:name="com.example.wayhome.AppFragment"
+        android:label="fragment_app"
+        tools:layout="@layout/fragment_app" >
+        <action
+            android:id="@+id/action_appFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_appFragment_to_shareFragment"
+            app:destination="@id/shareFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.example.wayhome.ShareFragment"
+        android:label="fragment_share"
+        tools:layout="@layout/fragment_share" >
+        <action
+            android:id="@+id/action_shareFragment_to_appFragment"
+            app:destination="@id/appFragment" />
     </fragment>
 </navigation>

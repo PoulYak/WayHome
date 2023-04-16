@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Лента"
+        android:icon="@drawable/article"/>
+
+    <item
+        android:id="@+id/camera"
+        android:title="Камера"
+        android:icon="@drawable/camera"/>
+    <item
+        android:id="@+id/add"
+        android:title=""
+        android:icon="@drawable/add"/>
+    <item
+        android:id="@+id/map"
+        android:title="Карта"
+        android:icon="@drawable/location"/>
+
+    <item
+        android:id="@+id/profile"
+        android:title="Профиль"
+        android:icon="@drawable/pets"/>
+
+
+</menu>

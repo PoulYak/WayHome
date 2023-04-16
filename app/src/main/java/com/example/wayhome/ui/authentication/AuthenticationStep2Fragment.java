@@ -6,8 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +100,7 @@ public class AuthenticationStep2Fragment extends Fragment {
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
             Toast.makeText(getActivity(), "auth failed", Toast.LENGTH_SHORT).show();
+            Log.e("AUTH", e.toString());
         }
 
         @Override
@@ -120,7 +123,7 @@ public class AuthenticationStep2Fragment extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
-                    //startActivity
+//                    Navigation.findNavController(getView()).navigate(R.id.action_authenticationStep2Fragment2_to_appFragment);
 
 
                 }
