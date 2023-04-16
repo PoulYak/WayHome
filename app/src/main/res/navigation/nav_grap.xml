@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_mainFragment_to_shareFragment"
             app:destination="@id/shareFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_feedBackFragment"
+            app:destination="@id/feedBackFragment" />
     </fragment>
     <fragment
         android:id="@+id/authenticationStep1Fragment"
@@ -55,6 +58,9 @@
         <action
             android:id="@+id/action_appFragment_to_shareFragment"
             app:destination="@id/shareFragment" />
+        <action
+            android:id="@+id/action_appFragment_to_feedBackFragment"
+            app:destination="@id/feedBackFragment" />
     </fragment>
     <fragment
         android:id="@+id/shareFragment"
@@ -63,6 +69,15 @@
         tools:layout="@layout/fragment_share" >
         <action
             android:id="@+id/action_shareFragment_to_appFragment"
+            app:destination="@id/appFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedBackFragment"
+        android:name="com.example.wayhome.FeedBackFragment"
+        android:label="fragment_feed_back"
+        tools:layout="@layout/fragment_feed_back" >
+        <action
+            android:id="@+id/action_feedBackFragment_to_appFragment"
             app:destination="@id/appFragment" />
     </fragment>
 </navigation>

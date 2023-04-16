@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FeedBackFragment">
+
+    <TextView
+        android:id="@+id/feedBackText"
+        style="@style/My.Headline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/feedBackText" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/text_group"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:orientation="vertical">
+
+
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+
+            style="@style/My.Subtitle1"
+            android:text="@string/what_dont_you_like"
+            />
+        <EditText
+            style="@style/Theme.MyMy.EditText"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:background="@color/secondary70"
+            android:hint="@string/your_message"
+            android:padding="4dp"
+            android:layout_marginBottom="32dp"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/send_button"
+            style="@style/Theme.MyMy.RegisterButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/send" />
+        <TextView
+
+            style="@style/My.Subtitle2"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/answer_on_question" />
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>
