@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Way Home</string>
+    <string name="show">show</string>
+    <string name="condition_next_text">Нажимая кнопку «Далее», вы соглашаетесь с <a href="https://www.google.com/">Условиями использования</a> и <a href="https://www.google.com/">Политикой конфиденциальности</a> приложения</string>
+    <string name="layout_1_1_login_button_text">Вход</string>
+    <string name="layout_1_1_signup_button_text">Регистрация</string>
+    <string name="layout_1_2_next_button_text">Далее</string>
+    <string name="layout_1_2_enter_number_text">Введите номер телефона</string>
+    <string name="layout_1_2_send_code_text">Отправим код подтверждения</string>
+    <string name="layout_1_3_phone_text">Отправили на</string>
+    <string name="layout_1_3_enter_code_text">Введите код из смс</string>
+    <string name="layout_1_3_send_again_button_text">Оправить ещё раз</string>
+    <string name="layout_1_4_user_signup_text">Регистрация пользователя</string>
+    <string name="layout_1_4_signup_button_text">Зарегистрироваться</string>
+    <string name="layout_2_2_send_button_text">Отправить</string>
+    <string name="layout_2_2_send_text">Ответим на все ваши вопросы <a href="https://www.google.com/">findMyDogs@mail.ru</a></string>
+    <string name="title_1">title_1</string>
+    <string name="title_2">title_2</string>
+    <string name="title_3">title_3</string>
+    <string name="header_title">Ярополк К.</string>
+    <string name="header_text">+7 (914) 253-23-53</string>
+
+    <string name="condition_signup_text">Регистрируясь, вы соглашаетесь с <a href="https://www.google.com/">Условиями использования</a> и <a href="https://www.google.com/">Политикой конфиденциальности</a> приложения</string>
+    <string name="answer_on_question">Ответим на все вопросы <a href="https://www.google.com/">findMyDogs@mail.ru</a></string>
+    <string name="enter_phone">Ведите номер телефона</string>
+    <string name="logout_text">Выход</string>
+    <string name="phone_hint_text">Телефон</string>
+    <string name="open_nav">Открыть</string>
+    <string name="close_nav">Закрыть</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tool_notification_text">Уведомления</string>
+    <string name="tool_settings_text">Профиль</string>
+    <string name="tool_ads_text">Мои объявления</string>
+    <string name="tool_share_text">Поделиться приложением</string>
+    <string name="tool_about_text">О приложении</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+</resources>

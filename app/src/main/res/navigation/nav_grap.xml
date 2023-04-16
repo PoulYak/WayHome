@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_grap"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.wayhome.ui.main.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_authenticationStep1Fragment"
+            app:destination="@id/authenticationStep1Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authenticationStep1Fragment"
+        android:name="com.example.wayhome.ui.authentication.AuthenticationStep1Fragment"
+        android:label="fragment_authentication_step1"
+        tools:layout="@layout/fragment_authentication_step1" >
+        <action
+            android:id="@+id/action_authenticationStep1Fragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_authenticationStep1Fragment_to_authenticationStep2Fragment2"
+            app:destination="@id/authenticationStep2Fragment2">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/authenticationStep2Fragment2"
+        android:name="com.example.wayhome.ui.authentication.AuthenticationStep2Fragment"
+        android:label="fragment_authentication_step2"
+        tools:layout="@layout/fragment_authentication_step2" >
+        <action
+            android:id="@+id/action_authenticationStep2Fragment2_to_authenticationStep1Fragment"
+            app:destination="@id/authenticationStep1Fragment" />
+    </fragment>
+</navigation>
