@@ -38,8 +38,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
-
+import java.util.Objects;
 
 
 public class AppFragment extends Fragment {
@@ -68,11 +67,41 @@ public class AppFragment extends Fragment {
             AppBarConfiguration appBarConfiguration =
                     new AppBarConfiguration.Builder(navController.getGraph()).build();
             Toolbar toolbar = view.findViewById(R.id.toolbar);
+            toolbar.inflateMenu(R.menu.toolbar_menu);
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()){
+                        case (R.id.tool_notifications):
+//                            Navigation.findNavController(getView()).navigate(R.id.to);
+                            Toast.makeText(getActivity(), getText(R.string.tool_notification_text), Toast.LENGTH_SHORT).show();
+                            break;
+                        case (R.id.tool_ads):
+                            Toast.makeText(getActivity(), getText(R.string.tool_ads_text), Toast.LENGTH_SHORT).show();
+                            break;
+                        case (R.id.tool_share):
+                            Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_shareFragment);
+                            break;
+                        case (R.id.tool_feedback):
+                            Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_feedBackFragment);
+                            break;
+                        case (R.id.tool_settings):
+                            Toast.makeText(getActivity(), getText(R.string.tool_settings_text), Toast.LENGTH_SHORT).show();
+                            break;
+                        case (R.id.tool_logout):
+                            break;
+                    }
+                    return false;
+                }
+            });
+
 
             NavigationUI.setupWithNavController(
                     toolbar, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(navigationBar, navController);
         }
+
+
     }
 }
 

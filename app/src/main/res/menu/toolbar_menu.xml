@@ -12,8 +12,8 @@
         android:id="@+id/tool_ads"/>
     <item android:title="@string/tool_share_text"
         android:id="@+id/tool_share"/>
-    <item android:title="@string/tool_about_text"
-        android:id="@+id/tool_about"/>
+    <item android:title="@string/tool_feedback_text"
+        android:id="@+id/tool_feedback"/>
     <item android:title="Выйти"
         android:id="@+id/tool_logout"/>
 
