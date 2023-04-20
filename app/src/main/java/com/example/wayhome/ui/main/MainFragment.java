@@ -47,7 +47,7 @@ public class MainFragment extends Fragment {
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.loginButton.setOnClickListener(v -> {
 //            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_authenticationStep1Fragment);
-            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_feedBackFragment);
+            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_formFragment);
         });
         mBinding.signupButton.setOnClickListener(v -> {
 //            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_authenticationStep1Fragment);

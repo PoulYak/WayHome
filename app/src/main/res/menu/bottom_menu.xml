@@ -2,25 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@id/homeFragment"
         android:title="Лента"
         android:icon="@drawable/article"/>
 
     <item
-        android:id="@+id/camera"
+        android:id="@id/cameraFragment"
         android:title="Камера"
         android:icon="@drawable/camera"/>
     <item
-        android:id="@+id/add"
-        android:title=""
-        android:icon="@drawable/add"/>
-    <item
-        android:id="@+id/map"
+        android:id="@id/mapFragment"
         android:title="Карта"
         android:icon="@drawable/location"/>
 
     <item
-        android:id="@+id/profile"
+        android:id="@id/profileFragment"
         android:title="Профиль"
         android:icon="@drawable/pets"/>
 
