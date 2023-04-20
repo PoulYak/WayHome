@@ -8,8 +8,6 @@
         app:showAsAction="ifRoom"/>
     <item android:title="@string/tool_settings_text"
         android:id="@+id/tool_settings"/>
-    <item android:title="@string/tool_ads_text"
-        android:id="@+id/tool_ads"/>
     <item android:title="@string/tool_share_text"
         android:id="@+id/tool_share"/>
     <item android:title="@string/tool_feedback_text"

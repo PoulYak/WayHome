@@ -64,6 +64,12 @@
         <action
             android:id="@+id/action_appFragment_to_formFragment"
             app:destination="@id/formFragment" />
+        <action
+            android:id="@+id/action_appFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_appFragment_to_settingsFragment2"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/shareFragment"
@@ -90,6 +96,15 @@
         tools:layout="@layout/fragment_form" >
         <action
             android:id="@+id/action_formFragment_to_appFragment"
+            app:destination="@id/appFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.wayhome.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_appFragment"
             app:destination="@id/appFragment" />
     </fragment>
 </navigation>

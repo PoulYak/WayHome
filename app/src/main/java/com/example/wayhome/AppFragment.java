@@ -76,9 +76,6 @@ public class AppFragment extends Fragment {
 //                            Navigation.findNavController(getView()).navigate(R.id.to);
                             Toast.makeText(getActivity(), getText(R.string.tool_notification_text), Toast.LENGTH_SHORT).show();
                             break;
-                        case (R.id.tool_ads):
-                            Toast.makeText(getActivity(), getText(R.string.tool_ads_text), Toast.LENGTH_SHORT).show();
-                            break;
                         case (R.id.tool_share):
                             Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_shareFragment);
                             break;
@@ -86,7 +83,7 @@ public class AppFragment extends Fragment {
                             Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_feedBackFragment);
                             break;
                         case (R.id.tool_settings):
-                            Toast.makeText(getActivity(), getText(R.string.tool_settings_text), Toast.LENGTH_SHORT).show();
+                            Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_settingsFragment);
                             break;
                         case (R.id.tool_logout):
                             break;

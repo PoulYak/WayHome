@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.yandex.android:maps.mobile:4.3.1-lite'
     implementation 'com.google.firebase:firebase-auth:21.2.0'
     implementation "ru.tinkoff.decoro:decoro:1.1.1"
     implementation 'com.google.android.material:compose-theme-adapter-3:1.1.1'
