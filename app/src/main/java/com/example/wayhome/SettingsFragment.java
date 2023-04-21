@@ -38,11 +38,11 @@ public class SettingsFragment extends Fragment {
 
         NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.fragmentContainerView);
 
-//            NavController navController = navHostFragment.getNavController();
-//            AppBarConfiguration appBarConfiguration =
-//                    new AppBarConfiguration.Builder(navController.getGraph()).build();
-//            Toolbar toolbar = view.findViewById(R.id.toolbar);
-//            NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+            NavController navController = Navigation.findNavController(requireView());
+            AppBarConfiguration appBarConfiguration =
+                    new AppBarConfiguration.Builder(navController.getGraph()).build();
+            Toolbar toolbar = view.findViewById(R.id.toolbar);
+            NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
 
     }
