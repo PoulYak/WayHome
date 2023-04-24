@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentCameraBinding;
+import com.example.wayhome.ui.main.MainViewModel;
 
 import java.io.File;
 
@@ -29,7 +31,7 @@ public class CameraFragment extends Fragment {
     private static final int CAMERA_PERMISSION_CODE = 1;
     FragmentCameraBinding binding;
     ActivityResultLauncher<Uri> takePictureLauncher;
-    Uri imageUri;
+    CameraViewModel viewModel;
 
     public CameraFragment() {
         // Required empty public constructor
@@ -39,6 +41,8 @@ public class CameraFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCameraBinding.inflate(inflater, container, false);
+        viewModel = new ViewModelProvider(this).get(CameraViewModel.class);
+        binding.setViewModel(viewModel);
         return binding.getRoot();
     }
 
@@ -46,8 +50,14 @@ public class CameraFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        imageUri = createUri();
+
+
         registerPictureLauncher();
+        if (viewModel.getImageUri()!=null)
+            binding.ivUser.setImageURI(viewModel.getImageUri());
+        else
+            viewModel.setImageUri(createUri());
+
 
         binding.btnTakePicture.setOnClickListener(v -> {
             checkCameraPermissionAndOpenCamera();
@@ -66,17 +76,14 @@ public class CameraFragment extends Fragment {
     private void registerPictureLauncher() {
         takePictureLauncher = registerForActivityResult(
                 new ActivityResultContracts.TakePicture(),
-                new ActivityResultCallback<Boolean>() {
-                    @Override
-                    public void onActivityResult(Boolean result) {
-                        try {
-                            if (result) {
-                                binding.ivUser.setImageURI(null);
-                                binding.ivUser.setImageURI(imageUri);
-                            }
-                        } catch (Exception exception) {
-                            exception.getStackTrace();
+                result -> {
+                    try {
+                        if (result) {
+                            binding.ivUser.setImageURI(null);
+                            binding.ivUser.setImageURI(viewModel.getImageUri());
                         }
+                    } catch (Exception exception) {
+                        exception.getStackTrace();
                     }
                 }
         );
@@ -87,7 +94,7 @@ public class CameraFragment extends Fragment {
             ActivityCompat.requestPermissions(requireActivity(),
                     new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         } else {
-            takePictureLauncher.launch(imageUri);
+            takePictureLauncher.launch(viewModel.getImageUri());
         }
     }
 
@@ -96,7 +103,7 @@ public class CameraFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                takePictureLauncher.launch(imageUri);
+                takePictureLauncher.launch(viewModel.getImageUri());
             else
                 Toast.makeText(requireContext(), "Camera permission denied, please allow permission to take a photo", Toast.LENGTH_SHORT).show();
         }

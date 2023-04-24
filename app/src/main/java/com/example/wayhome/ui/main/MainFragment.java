@@ -19,6 +19,8 @@ import com.example.wayhome.databinding.FragmentMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class MainFragment extends Fragment {
     private FragmentMainBinding mBinding;
     private MainViewModel mViewModel;
@@ -30,7 +32,7 @@ public class MainFragment extends Fragment {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser!=null){
             Toast.makeText(getActivity(), "Start Activity", Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_appFragment);
+            Navigation.findNavController(requireView()).navigate(R.id.action_mainFragment_to_appFragment);
 
 
         }
@@ -62,7 +64,7 @@ public class MainFragment extends Fragment {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser!=null){
             Toast.makeText(getActivity(), "Start Activity", Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_appFragment);
+            Navigation.findNavController(requireView()).navigate(R.id.action_mainFragment_to_appFragment);
 
 
         }
