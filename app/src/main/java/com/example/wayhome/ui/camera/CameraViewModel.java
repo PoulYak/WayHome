@@ -12,6 +12,16 @@ import com.yandex.mapkit.mapview.MapView;
 public class CameraViewModel extends ViewModel {
     private MutableLiveData<String> mText = new MutableLiveData<>();
     Uri imageUri = null;
+    boolean isActive = false;
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public LiveData<String> getText() {
         return mText;
     }

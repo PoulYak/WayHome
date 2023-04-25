@@ -53,8 +53,10 @@ public class CameraFragment extends Fragment {
 
 
         registerPictureLauncher();
-        if (viewModel.getImageUri()!=null)
+        if (!viewModel.isActive()){
             binding.ivUser.setImageURI(viewModel.getImageUri());
+            viewModel.setActive(true);
+        }
         else
             viewModel.setImageUri(createUri());
 
