@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_mainFragment_to_formFragment"
             app:destination="@id/formFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_appFragment2"
+            app:destination="@id/appFragment" />
     </fragment>
     <fragment
         android:id="@+id/authenticationStep1Fragment"

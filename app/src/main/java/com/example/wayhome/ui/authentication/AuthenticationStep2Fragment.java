@@ -123,7 +123,7 @@ public class AuthenticationStep2Fragment extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
-//                    Navigation.findNavController(getView()).navigate(R.id.action_authenticationStep2Fragment2_to_appFragment);
+                    Navigation.findNavController(requireView()).navigate(R.id.action_authenticationStep2Fragment2_to_appFragment);
 
 
                 }

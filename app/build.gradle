@@ -34,9 +34,13 @@ android {
 }
 
 dependencies {
+    implementation('androidx.room:room-runtime:2.5.1')
+    annotationProcessor "androidx.room:room-compiler:2.5.1"
+    androidTestImplementation "androidx.room:room-testing:2.5.1"
+
 
     implementation 'com.yandex.android:maps.mobile:4.3.1-lite'
-    implementation 'com.google.firebase:firebase-auth:21.2.0'
+    implementation 'com.google.firebase:firebase-auth:21.3.0'
     implementation "ru.tinkoff.decoro:decoro:1.1.1"
     implementation 'com.google.android.material:compose-theme-adapter-3:1.1.1'
     implementation 'androidx.compose.material3:material3:1.0.1'

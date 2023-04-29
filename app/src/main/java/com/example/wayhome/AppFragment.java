@@ -17,6 +17,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -30,6 +32,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.wayhome.data.room.Person;
+import com.example.wayhome.data.room.PersonDatabase;
 import com.example.wayhome.databinding.FragmentAppBinding;
 import com.example.wayhome.databinding.FragmentMainBinding;
 import com.example.wayhome.ui.main.MainViewModel;
@@ -38,6 +42,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -45,12 +50,28 @@ public class AppFragment extends Fragment {
 
     private AppBarConfiguration mAppBarConfiguration;
     private FragmentAppBinding mBinding;
+    FirebaseAuth mAuth;
+    PersonDatabase db;
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        mAuth= FirebaseAuth.getInstance();
         mBinding = FragmentAppBinding.inflate(inflater);
+        db = Room.databaseBuilder(requireContext(),
+                PersonDatabase.class, "person-database").allowMainThreadQueries().build();
+        Person joe = new Person("Joe", "Swedish");
+        Person joe2 = new Person("Joe", "Dura");
+        db.personDao().insertAll(joe, joe2);
+        List<Person> personList = db.personDao().getAllPersons();
+
+        for (Person lists: personList){
+            Log.d("persons", lists.firstName+" "+lists.lastName);
+        }
+
         return mBinding.getRoot();
     }
 
@@ -86,6 +107,9 @@ public class AppFragment extends Fragment {
                             Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_settingsFragment);
                             break;
                         case (R.id.tool_logout):
+                            mAuth.signOut();
+                            Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_mainFragment);
+
                             break;
                     }
                     return false;

@@ -25,17 +25,12 @@ import com.example.wayhome.ui.main.MainViewModel;
 
 import java.io.File;
 
-
 public class CameraFragment extends Fragment {
 
     private static final int CAMERA_PERMISSION_CODE = 1;
     FragmentCameraBinding binding;
     ActivityResultLauncher<Uri> takePictureLauncher;
     CameraViewModel viewModel;
-
-    public CameraFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -50,15 +45,14 @@ public class CameraFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         registerPictureLauncher();
-        if (!viewModel.isActive()){
+        if (viewModel.isActive())
             binding.ivUser.setImageURI(viewModel.getImageUri());
-            viewModel.setActive(true);
-        }
-        else
+        else{
             viewModel.setImageUri(createUri());
+            checkCameraPermissionAndOpenCamera();
+
+        }
 
 
         binding.btnTakePicture.setOnClickListener(v -> {
@@ -83,6 +77,8 @@ public class CameraFragment extends Fragment {
                         if (result) {
                             binding.ivUser.setImageURI(null);
                             binding.ivUser.setImageURI(viewModel.getImageUri());
+                            viewModel.setActive(true);
+
                         }
                     } catch (Exception exception) {
                         exception.getStackTrace();
@@ -104,8 +100,10 @@ public class CameraFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 takePictureLauncher.launch(viewModel.getImageUri());
+                viewModel.setActive(true);
+            }
             else
                 Toast.makeText(requireContext(), "Camera permission denied, please allow permission to take a photo", Toast.LENGTH_SHORT).show();
         }

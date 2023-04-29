@@ -24,18 +24,12 @@ import java.util.Objects;
 public class MainFragment extends Fragment {
     private FragmentMainBinding mBinding;
     private MainViewModel mViewModel;
+    FirebaseUser currentUser;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser!=null){
-            Toast.makeText(getActivity(), "Start Activity", Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(requireView()).navigate(R.id.action_mainFragment_to_appFragment);
-
-
-        }
+        currentUser= FirebaseAuth.getInstance().getCurrentUser();
         mBinding = FragmentMainBinding.inflate(inflater, container, false);
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mBinding.setViewModel(mViewModel);
@@ -45,6 +39,10 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (currentUser!=null){
+            Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
+            Navigation.findNavController(requireView()).navigate(R.id.action_mainFragment_to_appFragment);
+        }
         mViewModel.setText("Hello, world!");
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.loginButton.setOnClickListener(v -> {
@@ -59,15 +57,4 @@ public class MainFragment extends Fragment {
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser!=null){
-            Toast.makeText(getActivity(), "Start Activity", Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(requireView()).navigate(R.id.action_mainFragment_to_appFragment);
-
-
-        }
-    }
 }
