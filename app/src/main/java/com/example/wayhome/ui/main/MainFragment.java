@@ -29,7 +29,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        currentUser= FirebaseAuth.getInstance().getCurrentUser();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         mBinding = FragmentMainBinding.inflate(inflater, container, false);
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mBinding.setViewModel(mViewModel);

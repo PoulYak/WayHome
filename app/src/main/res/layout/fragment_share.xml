@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/closeBtn"
             android:background="@drawable/ic_baseline_close_24"
             android:layout_width="48dp"
@@ -19,7 +19,7 @@
             android:src="@drawable/ic_baseline_close_24"
             android:layout_margin="0dp">
 
-        </androidx.appcompat.widget.AppCompatButton>
+        </com.google.android.material.button.MaterialButton>
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="520dp"
@@ -44,11 +44,11 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Спасите своего \nпушистика"
-            app:layout_constraintBottom_toTopOf="@+id/nextBtn">
+            app:layout_constraintBottom_toTopOf="@+id/shareBtn">
 
         </TextView>
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/nextBtn"
+            android:id="@+id/shareBtn"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             app:layout_constraintBottom_toBottomOf="parent"
