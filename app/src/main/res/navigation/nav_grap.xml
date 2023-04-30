@@ -79,8 +79,8 @@
     <fragment
         android:id="@+id/feedBackFragment"
         android:name="com.example.wayhome.ui.additionals.FeedBackFragment"
-        android:label="fragment_feed_back"
-        tools:layout="@layout/fragment_feed_back" >
+        android:label="Поддержка"
+        tools:layout="@layout/fragment_feed_back">
         <action
             android:id="@+id/action_feedBackFragment_to_appFragment"
             app:destination="@id/appFragment" />
@@ -88,8 +88,8 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.wayhome.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" >
+        android:label="Настройки"
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_appFragment"
             app:destination="@id/appFragment" />

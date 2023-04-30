@@ -8,8 +8,8 @@
 
     <item
         android:id="@id/cameraFragment"
-        android:title="Камера"
-        android:icon="@drawable/camera"/>
+        android:title="Добавить"
+        android:icon="@drawable/add"/>
     <item
         android:id="@id/mapFragment"
         android:title="Карта"
