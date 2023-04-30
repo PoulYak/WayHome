@@ -19,9 +19,6 @@
             android:id="@+id/action_mainFragment_to_shareFragment"
             app:destination="@id/shareFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_formFragment"
-            app:destination="@id/formFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_appFragment2"
             app:destination="@id/appFragment" />
     </fragment>
@@ -64,9 +61,6 @@
             android:id="@+id/action_appFragment_to_feedBackFragment"
             app:destination="@id/feedBackFragment" />
         <action
-            android:id="@+id/action_appFragment_to_formFragment"
-            app:destination="@id/formFragment" />
-        <action
             android:id="@+id/action_appFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
@@ -89,15 +83,6 @@
         tools:layout="@layout/fragment_feed_back" >
         <action
             android:id="@+id/action_feedBackFragment_to_appFragment"
-            app:destination="@id/appFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/formFragment"
-        android:name="com.example.wayhome.ui.additionals.FormFragment"
-        android:label="fragment_form"
-        tools:layout="@layout/fragment_form" >
-        <action
-            android:id="@+id/action_formFragment_to_appFragment"
             app:destination="@id/appFragment" />
     </fragment>
     <fragment

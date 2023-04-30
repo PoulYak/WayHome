@@ -51,14 +51,14 @@ public class CameraFragment extends Fragment {
             binding.ivUser.setImageURI(viewModel.getImageUri());
         else{
             viewModel.setImageUri(createUri());
-            checkCameraPermissionAndOpenCamera();
-
         }
-
+        binding.bigScroll.setHorizontalScrollBarEnabled(false);
 
         binding.btnTakePicture.setOnClickListener(v -> {
             checkCameraPermissionAndOpenCamera();
         });
+
+
     }
 
     private Uri createUri() {

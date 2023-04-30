@@ -152,6 +152,190 @@
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Замечен последний раз"
+                    style="@style/My.Subtitle2"
+                    android:id="@+id/article14"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <androidx.appcompat.widget.AppCompatEditText
+                    style="@style/My.Body1"
+                    android:id="@+id/edit14"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/article14"
+                    android:layout_height="32dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Замечен последний раз"
+                    style="@style/My.Subtitle2"
+                    android:id="@+id/article13"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <androidx.appcompat.widget.AppCompatEditText
+                    style="@style/My.Body1"
+                    android:id="@+id/edit13"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/article13"
+                    android:layout_height="32dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Замечен последний раз"
+                    style="@style/My.Subtitle2"
+                    android:id="@+id/article7"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <androidx.appcompat.widget.AppCompatEditText
+                    style="@style/My.Body1"
+                    android:id="@+id/edit7"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/article7"
+                    android:layout_height="32dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout><androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Замечен последний раз"
+                style="@style/My.Subtitle2"
+                android:id="@+id/article8"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <androidx.appcompat.widget.AppCompatEditText
+                style="@style/My.Body1"
+                android:id="@+id/edit8"
+                android:paddingHorizontal="8dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_edit_text"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/article8"
+                android:layout_height="32dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Замечен последний раз"
+                    style="@style/My.Subtitle2"
+                    android:id="@+id/article9"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <androidx.appcompat.widget.AppCompatEditText
+                    style="@style/My.Body1"
+                    android:id="@+id/edit9"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/article9"
+                    android:layout_height="32dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Замечен последний раз"
+                    style="@style/My.Subtitle2"
+                    android:id="@+id/article10"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <androidx.appcompat.widget.AppCompatEditText
+                    style="@style/My.Body1"
+                    android:id="@+id/edit10"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/article10"
+                    android:layout_height="32dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Замечен последний раз"
+                    style="@style/My.Subtitle2"
+                    android:id="@+id/article11"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <androidx.appcompat.widget.AppCompatEditText
+                    style="@style/My.Body1"
+                    android:id="@+id/edit11"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/article11"
+                    android:layout_height="32dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Замечен последний раз"
+                    style="@style/My.Subtitle2"
+                    android:id="@+id/article12"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <androidx.appcompat.widget.AppCompatEditText
+                    style="@style/My.Body1"
+                    android:id="@+id/edit12"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/article12"
+                    android:layout_height="32dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
             <com.google.android.material.button.MaterialButton

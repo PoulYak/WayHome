@@ -51,5 +51,6 @@
     <string name="tool_feedback_text">Задать вопрос</string>
     <string name="aid">Поддержка</string>
     <string name="lost_feed">Лента потеряшек</string>
+    <string name="next_step">Далее</string>
 
 </resources>

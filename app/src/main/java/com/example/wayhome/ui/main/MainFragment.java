@@ -46,13 +46,10 @@ public class MainFragment extends Fragment {
         mViewModel.setText("Hello, world!");
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.loginButton.setOnClickListener(v -> {
-//            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_authenticationStep1Fragment);
-            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_appFragment);
-//            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_formFragment);
+            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_authenticationStep1Fragment);
         });
         mBinding.signupButton.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_authenticationStep1Fragment);
-//            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_appFragment);
         });
 
     }
