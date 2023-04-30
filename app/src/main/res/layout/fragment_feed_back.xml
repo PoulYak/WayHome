@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.additionals.FeedBackFragment">
-
-    <TextView
-        android:id="@+id/feedBackText"
-        style="@style/My.Headline5"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="@string/feedBackText" />
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         android:layout_width="match_parent"
         android:id="@+id/text_group"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:paddingHorizontal="16dp"
         android:orientation="vertical">
 
@@ -29,13 +38,15 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="16dp"
 
             style="@style/My.Subtitle1"
             android:text="@string/what_dont_you_like"
             />
         <EditText
+
             style="@style/Theme.MyMy.EditText"
+            android:id="@+id/text_input"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,15 +63,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/send" />
-        <TextView
-
-            style="@style/My.Subtitle2"
-            android:layout_marginTop="16dp"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/answer_on_question" />
+            android:orientation="horizontal">
+            <TextView
 
+                style="@style/My.Subtitle2"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/answer_your_questions" />
+            <TextView
 
+                style="@style/My.Subtitle2"
+                android:id="@+id/mail"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/layout_2_2_send_text" />
+        </LinearLayout>
 
 
 
@@ -68,4 +90,4 @@
 
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

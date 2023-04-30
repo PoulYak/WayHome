@@ -53,8 +53,7 @@
     <fragment
         android:id="@+id/appFragment"
         android:name="com.example.wayhome.AppFragment"
-        android:label="fragment_app"
-        tools:layout="@layout/fragment_app" >
+        tools:layout="@layout/fragment_app">
         <action
             android:id="@+id/action_appFragment_to_mainFragment"
             app:destination="@id/mainFragment" />

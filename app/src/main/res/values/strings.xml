@@ -13,7 +13,8 @@
     <string name="layout_1_4_user_signup_text">Регистрация пользователя</string>
     <string name="layout_1_4_signup_button_text">Зарегистрироваться</string>
     <string name="layout_2_2_send_button_text">Отправить</string>
-    <string name="layout_2_2_send_text">Ответим на все ваши вопросы <a href="https://www.google.com/">findMyDogs@mail.ru</a></string>
+    <string name="answer_your_questions">Ответим на все ваши вопросы в </string>
+    <string name="layout_2_2_send_text"><a href="https://www.google.com/">Telegram</a></string>
     <string name="title_1">title_1</string>
     <string name="title_2">title_2</string>
     <string name="title_3">title_3</string>
@@ -48,4 +49,7 @@
     <string name="what_dont_you_like">Что вам не понравилось в MyMy?</string>
     <string name="feedBackText">Обратная связь</string>
     <string name="tool_feedback_text">Задать вопрос</string>
+    <string name="aid">Поддержка</string>
+    <string name="lost_feed">Лента потеряшек</string>
+
 </resources>
