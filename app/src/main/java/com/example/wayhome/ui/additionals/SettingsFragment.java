@@ -1,4 +1,4 @@
-package com.example.wayhome;
+package com.example.wayhome.ui.additionals;
 
 import android.os.Bundle;
 
@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentSettingsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

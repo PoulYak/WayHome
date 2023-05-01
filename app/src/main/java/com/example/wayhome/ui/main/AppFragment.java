@@ -1,4 +1,4 @@
-package com.example.wayhome;
+package com.example.wayhome.ui.main;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.wayhome.R;
 import com.example.wayhome.data.room.Person;
 import com.example.wayhome.data.room.PersonDatabase;
 import com.example.wayhome.databinding.FragmentAppBinding;

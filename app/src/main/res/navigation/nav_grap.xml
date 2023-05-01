@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/appFragment"
-        android:name="com.example.wayhome.AppFragment"
+        android:name="com.example.wayhome.ui.main.AppFragment"
         tools:layout="@layout/fragment_app">
         <action
             android:id="@+id/action_appFragment_to_mainFragment"
@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.wayhome.SettingsFragment"
+        android:name="com.example.wayhome.ui.additionals.SettingsFragment"
         android:label="Настройки"
         tools:layout="@layout/fragment_settings">
         <action
