@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
     FragmentProfileBinding mBinding;
 
-    RecyclerView recyclerView;
     private ArrayList<MyMy> arrayList;
 
     @Override
