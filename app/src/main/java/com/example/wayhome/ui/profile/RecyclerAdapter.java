@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wayhome.R;
@@ -36,9 +37,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MyMy post = arrayList.get(position);
 
-//        holder.title.setText(post.getTitle());
-//        holder.message.setText(post.getMessage());
         holder.postImage.setImageResource(post.getPostImage());
+        holder.itemView.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_cardFragment);
+        });
 
     }
 

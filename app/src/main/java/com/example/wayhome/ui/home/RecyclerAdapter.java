@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wayhome.R;
@@ -20,6 +21,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         this.arrayList=arrayList;
 
     }
+
 
 
 
@@ -39,6 +41,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 //        holder.title.setText(post.getTitle());
 //        holder.message.setText(post.getMessage());
         holder.postImage.setImageResource(post.getPostImage());
+        holder.itemView.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_cardFragment);
+        });
 
     }
 

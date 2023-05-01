@@ -34,7 +34,6 @@ public class HomeFragment extends Fragment {
         arrayList.add(new MyMy(R.drawable.camera, R.drawable.pets, "mytitle", "mymessage"));
         arrayList.add(new MyMy(R.drawable.camera, R.drawable.pets, "mytitle", "mymessage"));
         arrayList.add(new MyMy(R.drawable.camera, R.drawable.pets, "mytitle", "mymessage"));
-
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList);
 
         mBinding.recyclerView.setAdapter(recyclerAdapter);
