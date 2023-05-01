@@ -1,5 +1,6 @@
 package com.example.wayhome.ui.card;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,12 +35,21 @@ public class CardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        binding.layoutShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,"Пропал султан"); //todo text for sharing
+                sendIntent.setType("text/plain");
+//                sendIntent.setType("")
+                Intent.createChooser(sendIntent,"Share via");
+                startActivity(sendIntent);
+            }
+        });
 
             binding.mapview.getMap().move(
-                    new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
-                    new Animation(Animation.Type.SMOOTH, 5),
-                    null);
+                    new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f));
 
         }
 

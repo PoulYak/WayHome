@@ -23,6 +23,7 @@ import com.example.wayhome.MainActivity;
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentMapBinding;
 import com.example.wayhome.ui.camera.CameraViewModel;
+import com.google.android.material.snackbar.Snackbar;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Circle;
@@ -30,11 +31,18 @@ import com.yandex.mapkit.geometry.LinearRing;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.geometry.Polygon;
 import com.yandex.mapkit.geometry.Polyline;
+import com.yandex.mapkit.layers.GeoObjectTapEvent;
+import com.yandex.mapkit.layers.GeoObjectTapListener;
+import com.yandex.mapkit.map.CameraListener;
 import com.yandex.mapkit.map.CameraPosition;
+import com.yandex.mapkit.map.CameraUpdateReason;
 import com.yandex.mapkit.map.CircleMapObject;
 import com.yandex.mapkit.map.IconStyle;
+import com.yandex.mapkit.map.InputListener;
+import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.map.MapObject;
 import com.yandex.mapkit.map.MapObjectCollection;
+import com.yandex.mapkit.map.MapObjectDragListener;
 import com.yandex.mapkit.map.MapObjectTapListener;
 import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.map.PolygonMapObject;
@@ -53,6 +61,11 @@ public class MapFragment extends Fragment {
     FragmentMapBinding mBinding;
     MapViewModel viewModel;
     private final Point TARGET_LOCATION = new Point(59.845933, 30.320045);
+    private final Point TARGET_LOCATION2 = new Point(59.805933, 30.320045);
+    private final Point TARGET_LOCATION3 = new Point(59.815933, 30.320045);
+    private final Point TARGET_LOCATION4 = new Point(59.825933, 30.320045);
+
+
 
 
 
@@ -73,28 +86,39 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mBinding.mapview.getMap().addInputListener(inputListener);
+        mBinding.mapview.getMap().addCameraListener(cameraListener);
         if (!viewModel.isActive()){
 
             mBinding.mapview.getMap().move(
                     new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
                     new Animation(Animation.Type.SMOOTH, 5),
                     null);
-            PlacemarkMapObject mark = viewModel.getMapObjects().addPlacemark(TARGET_LOCATION);
-            mark.setOpacity(0.5f);
-            mark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.mark));
-            mark.setDraggable(true);
-            viewModel.setActive(true);
+            ArrayList<Point> pts = new ArrayList<>();
+            pts.add(TARGET_LOCATION);
+            pts.add(TARGET_LOCATION2);
+            pts.add(TARGET_LOCATION3);
+            pts.add(TARGET_LOCATION4);
+            for (Point p: pts){
+                PlacemarkMapObject mark = viewModel.getMapObjects().addPlacemark(p);
+                mark.setOpacity(0.7f);
+                mark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.dog1));
+                viewModel.setActive(true);
+                mark.setDraggable(true);
+                mark.setDragListener(dragListener);
+                mark.addTapListener(tapListener);
+            }
+
         }
         else{
-            mBinding.mapview.getMap().move(
-                    new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
-                    new Animation(Animation.Type.SMOOTH, 0),
-                    null);
-            PlacemarkMapObject mark = viewModel.getMapObjects().addPlacemark(TARGET_LOCATION);
-            mark.setOpacity(0.5f);
-            mark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.mark));
-            mark.setDraggable(true);
+//            mBinding.mapview.getMap().move(
+//                    new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
+//                    new Animation(Animation.Type.SMOOTH, 0),
+//                    null);
+//            PlacemarkMapObject mark = viewModel.getMapObjects().addPlacemark(TARGET_LOCATION);
+//            mark.setOpacity(0.7f);
+//            mark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.dog1));
+//            mark.setDraggable(true);
         }
 
 
@@ -169,7 +193,48 @@ public class MapFragment extends Fragment {
 
 
 
+    InputListener inputListener = new InputListener() {
+        @Override
+        public void onMapTap(@NonNull Map map, @NonNull Point point) {
+            Toast.makeText(requireContext(), point.getLatitude()+" "+point.getLongitude(), Toast.LENGTH_SHORT).show();
+        }
 
+        @Override
+        public void onMapLongTap(@NonNull Map map, @NonNull Point point) {
+            Snackbar.make(mBinding.mapview, "Давай, ещё подольше подержи, может что получится", Toast.LENGTH_SHORT).show();
+
+        }
+    };
+
+    MapObjectDragListener dragListener = new MapObjectDragListener() {
+        @Override
+        public void onMapObjectDragStart(@NonNull MapObject mapObject) {
+        }
+        @Override
+        public void onMapObjectDrag(@NonNull MapObject mapObject, @NonNull Point point) {
+        }
+        @Override
+        public void onMapObjectDragEnd(@NonNull MapObject mapObject) {
+            Toast.makeText(requireContext(), "Перетащен", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    MapObjectTapListener tapListener = new MapObjectTapListener() {
+        @Override
+        public boolean onMapObjectTap(@NonNull MapObject mapObject, @NonNull Point point) {
+            Toast.makeText(requireContext(), "Пёсель пропал", Toast.LENGTH_SHORT).show();
+            mapObject.setVisible(false);
+            return false;
+        }
+    };
+
+    CameraListener cameraListener = new CameraListener() {
+        @Override
+        public void onCameraPositionChanged(@NonNull Map map, @NonNull CameraPosition cameraPosition, @NonNull CameraUpdateReason cameraUpdateReason, boolean b) {
+            Snackbar.make(mBinding.mapview, "Перемещай ещё", Toast.LENGTH_SHORT).show();
+
+        }
+    };
 
 
 
