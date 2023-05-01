@@ -64,6 +64,7 @@ public class MapFragment extends Fragment {
     private final Point TARGET_LOCATION2 = new Point(59.805933, 30.320045);
     private final Point TARGET_LOCATION3 = new Point(59.815933, 30.320045);
     private final Point TARGET_LOCATION4 = new Point(59.825933, 30.320045);
+    PlacemarkMapObject mark1;
 
 
 
@@ -86,8 +87,15 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mark1= viewModel.getMapObjects().addPlacemark(TARGET_LOCATION);
+        mark1.setOpacity(0.7f);
+        mark1.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.dog1));
+
+
         mBinding.mapview.getMap().addInputListener(inputListener);
         mBinding.mapview.getMap().addCameraListener(cameraListener);
+
+
         if (!viewModel.isActive()){
 
             mBinding.mapview.getMap().move(
@@ -119,7 +127,14 @@ public class MapFragment extends Fragment {
 //            mark.setOpacity(0.7f);
 //            mark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.dog1));
 //            mark.setDraggable(true);
+
+
         }
+
+
+
+
+
 
 
 
@@ -231,7 +246,11 @@ public class MapFragment extends Fragment {
     CameraListener cameraListener = new CameraListener() {
         @Override
         public void onCameraPositionChanged(@NonNull Map map, @NonNull CameraPosition cameraPosition, @NonNull CameraUpdateReason cameraUpdateReason, boolean b) {
-            Snackbar.make(mBinding.mapview, "Перемещай ещё", Toast.LENGTH_SHORT).show();
+
+
+            mark1.setGeometry(cameraPosition.getTarget());
+
+//            Snackbar.make(mBinding.mapview, "Перемещай ещё", Toast.LENGTH_SHORT).show();
 
         }
     };

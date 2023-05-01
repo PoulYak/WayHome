@@ -8,11 +8,11 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface PersonDao {
+public interface PetDao {
     @Insert
-    void insertAll(Person... persons);
+    void insertAll(Pet... pets);
 
-    @Query("SELECT * FROM person")
-    LiveData<List<Person>> getAllPersons();
+    @Query("SELECT * FROM pet")
+    LiveData<List<Pet>> getAllPets();
 
 }

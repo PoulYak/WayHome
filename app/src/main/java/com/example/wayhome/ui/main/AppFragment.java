@@ -52,7 +52,6 @@ public class AppFragment extends Fragment {
     private AppBarConfiguration mAppBarConfiguration;
     private FragmentAppBinding mBinding;
     FirebaseAuth mAuth;
-    PersonDatabase db;
 
 
 
@@ -62,16 +61,7 @@ public class AppFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mAuth= FirebaseAuth.getInstance();
         mBinding = FragmentAppBinding.inflate(inflater);
-        db = Room.databaseBuilder(requireContext(),
-                PersonDatabase.class, "person-database").allowMainThreadQueries().build();
-        Person joe = new Person("Joe", "Swedish");
-        Person joe2 = new Person("Joe", "Dura");
-        db.personDao().insertAll(joe, joe2);
-        List<Person> personList = db.personDao().getAllPersons();
 
-        for (Person lists: personList){
-            Log.d("persons", lists.firstName+" "+lists.lastName);
-        }
 
         return mBinding.getRoot();
     }
@@ -94,10 +84,10 @@ public class AppFragment extends Fragment {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()){
-                        case (R.id.tool_notifications):
-//                            Navigation.findNavController(getView()).navigate(R.id.to);
-                            Toast.makeText(getActivity(), getText(R.string.tool_notification_text), Toast.LENGTH_SHORT).show();
-                            break;
+//                        case (R.id.tool_notifications):
+////                            Navigation.findNavController(getView()).navigate(R.id.to);
+//                            Toast.makeText(getActivity(), getText(R.string.tool_notification_text), Toast.LENGTH_SHORT).show();
+//                            break;
                         case (R.id.tool_share):
                             Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_shareFragment);
                             break;
