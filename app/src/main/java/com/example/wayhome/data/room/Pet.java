@@ -4,69 +4,92 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "pets")
 public class Pet {
     @PrimaryKey(autoGenerate = true)
-    public int userId;
+    private int id;
 
-    @ColumnInfo(name = "nickname")
-    public String nickname;
-
-    @ColumnInfo(name = "sex")
-    public String sex;
-
-    @ColumnInfo(name = "phone_number")
-    public String phoneNumber;
-
-    @ColumnInfo(name = "lost_day")
-    public String lostDay;
-
-    @ColumnInfo(name = "birth_day")
-    public String birthDay;
+    @ColumnInfo(name = "name")
+    private String name;
 
     @ColumnInfo(name = "breed")
-    public String breed;
+    private String breed;
 
-    @ColumnInfo(name = "collar")
-    public String collar;
+    @ColumnInfo(name = "phone_number")
+    private String phoneNumber;
 
-    @ColumnInfo(name = "color")
-    public String color;
+    @ColumnInfo(name = "lost_day")
+    private int lostDay;
 
-    @ColumnInfo(name = "chip_number")
-    public String chipNumber;
+    @ColumnInfo(name = "birthday")
+    private int birthday;
 
-    @ColumnInfo(name = "stigma_number")
-    public String stigmaNumber;
+    @ColumnInfo(name = "owner_id")
+    private int ownerId;
 
-    @ColumnInfo(name = "comment")
-    public String comment;
-
-    @ColumnInfo(name = "features")
-    public String features;
-
-    @ColumnInfo(name = "longitude")
-    public String longitude;
-
-    @ColumnInfo(name = "latitude")
-    public String latitude;
-
-    public Pet(int userId, String nickname, String sex, String phoneNumber, String lostDay, String birthDay, String breed, String collar, String color, String chipNumber, String stigmaNumber, String comment, String features, String longitude, String latitude) {
-        this.userId = userId;
-        this.nickname = nickname;
-        this.sex = sex;
+    public Pet(int id, String name, String breed, String phoneNumber, int lostDay, int birthday, int ownerId) {
+        this.id = id;
+        this.name = name;
+        this.breed = breed;
         this.phoneNumber = phoneNumber;
         this.lostDay = lostDay;
-        this.birthDay = birthDay;
+        this.birthday = birthday;
+        this.ownerId = ownerId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
         this.breed = breed;
-        this.collar = collar;
-        this.color = color;
-        this.chipNumber = chipNumber;
-        this.stigmaNumber = stigmaNumber;
-        this.comment = comment;
-        this.features = features;
-        this.longitude = longitude;
-        this.latitude = latitude;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public int getLostDay() {
+        return lostDay;
+    }
+
+    public void setLostDay(int lostDay) {
+        this.lostDay = lostDay;
+    }
+
+    public int getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(int birthday) {
+        this.birthday = birthday;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 }
-

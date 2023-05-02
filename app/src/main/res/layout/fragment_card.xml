@@ -5,7 +5,17 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+        <com.yandex.mapkit.mapview.MapView
+            android:id="@+id/mapview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <ScrollView
+        android:layout_marginTop="300dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <LinearLayout
@@ -239,15 +249,7 @@
 
 
         </LinearLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="300dp">
-            <com.yandex.mapkit.mapview.MapView
-                android:id="@+id/mapview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

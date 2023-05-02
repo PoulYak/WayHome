@@ -26,9 +26,6 @@ public class CardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding =  FragmentCardBinding.inflate(inflater, container, false);
-//        viewModel = new ViewModelProvider(this).get(MapViewModel.class);
-//        mBinding.setViewModel(viewModel);
-//        viewModel.setMapObjects(mBinding.mapview.getMap().getMapObjects().addCollection());
 
         return binding.getRoot();
     }
@@ -49,13 +46,14 @@ public class CardFragment extends Fragment {
         });
 
             binding.mapview.getMap().move(
-                    new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f));
+                    new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
+                    new Animation(Animation.Type.SMOOTH, 5),
+                    null);
 
         }
 
     @Override
     public void onStop() {
-        // Fragment onStop call must be passed to both MapView and MapKit instance.
         binding.mapview.onStop();
         MapKitFactory.getInstance().onStop();
         super.onStop();
@@ -63,7 +61,6 @@ public class CardFragment extends Fragment {
 
     @Override
     public void onStart() {
-        // Fragment onStart call must be passed to both MapView and MapKit instance.
         super.onStart();
         MapKitFactory.getInstance().onStart();
         binding.mapview.onStart();

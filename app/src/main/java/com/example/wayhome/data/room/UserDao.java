@@ -7,10 +7,10 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface PetDao {
+public interface UserDao {
     @Insert
-    void insert(Pet pet);
+    void insert(User user);
 
-    @Query("SELECT * FROM pets WHERE owner_id = :ownerId")
-    List<Pet> getPetsByOwnerId(int ownerId);
+    @Query("SELECT * FROM users")
+    List<User> getAllUsers();
 }

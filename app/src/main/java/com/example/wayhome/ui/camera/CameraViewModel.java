@@ -15,6 +15,7 @@ public class CameraViewModel extends ViewModel {
     private MutableLiveData<String> mText = new MutableLiveData<>();
     ArrayList<Uri> imageUries = new ArrayList<>();
 
+
     boolean isActive = false;
 
     public void clearImages(){
@@ -48,4 +49,7 @@ public class CameraViewModel extends ViewModel {
     public Uri getImageUriLast() {
         return imageUries.get(imageUries.size()-1);
     }
+
+
+
 }
