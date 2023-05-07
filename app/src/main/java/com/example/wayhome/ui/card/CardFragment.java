@@ -45,14 +45,19 @@ public class CardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.mapview.getMap().setZoomGesturesEnabled(false);
+        binding.mapview.getMap().setScrollGesturesEnabled(false);
+        binding.mapview.getMap().setRotateGesturesEnabled(false);
+        binding.mapview.getMap().setTiltGesturesEnabled(false);
 
-//        binding.scrollView.stopScroll();
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.mapview.setVisibility(View.VISIBLE);
-            }
-        });
+
+
+//        binding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                binding.mapview.setVisibility(View.VISIBLE);
+//            }
+//        });
 
 
 

@@ -77,7 +77,6 @@ public class MapFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(MapViewModel.class);
         mBinding.setViewModel(viewModel);
         viewModel.setMapObjects(mBinding.mapview.getMap().getMapObjects().addCollection());
-
         return mBinding.getRoot();
     }
 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background">
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
 
         android:id="@+id/scrollView"
 
@@ -242,7 +242,12 @@
 
 
         </LinearLayout>
-
+        <com.yandex.mapkit.mapview.MapView
+            android:nestedScrollingEnabled="true"
+            android:id="@+id/mapview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -278,22 +283,8 @@
 
 
     </LinearLayout>
-    </ScrollView>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/location" />
+    </androidx.core.widget.NestedScrollView>
 
-    <com.yandex.mapkit.mapview.MapView
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        android:id="@+id/mapview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+
+
 </RelativeLayout>

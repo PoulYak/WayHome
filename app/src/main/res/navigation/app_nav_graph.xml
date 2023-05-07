@@ -37,10 +37,19 @@
         android:id="@+id/cameraFragment"
         android:name="com.example.wayhome.ui.camera.CameraFragment"
         android:label="Новая потеряшка"
-        tools:layout="@layout/fragment_camera" />
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_cameraFragment_to_getLocationFragment"
+            app:destination="@id/getLocationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cardFragment"
         android:name="com.example.wayhome.ui.card.CardFragment"
         android:label="Питомец"
         tools:layout="@layout/fragment_card" />
+    <fragment
+        android:id="@+id/getLocationFragment"
+        android:name="com.example.wayhome.ui.camera.getlocation.GetLocationFragment"
+        android:label="fragment_get_location"
+        tools:layout="@layout/fragment_get_location" />
 </navigation>

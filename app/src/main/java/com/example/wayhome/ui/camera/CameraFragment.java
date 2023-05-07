@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.wayhome.R;
 import com.example.wayhome.data.room.AppDatabase;
 import com.example.wayhome.data.room.Pet;
 import com.example.wayhome.databinding.FragmentCameraBinding;
@@ -92,6 +94,12 @@ public class CameraFragment extends Fragment {
         }
 
 //        viewModel.addPhoto(new Photo(createUri(0)));
+
+        binding.locationBtn.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_cameraFragment_to_getLocationFragment);
+        });
+
+
         binding.btnTakePicture.setOnClickListener(v -> {
             viewModel.addPhoto(new Photo(createUri(0)));
             recyclerAdapter.notifyItemInserted(viewModel.getSize()-1);
@@ -111,6 +119,8 @@ public class CameraFragment extends Fragment {
             t3 = (binding.edit3.getText()!=null?binding.edit3.getText().toString() :"0");
             viewModel.insertPet(new Pet(t1, Integer.parseInt(t2), Integer.parseInt(t3)));
         });
+
+
 
 
     }
