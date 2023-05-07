@@ -13,4 +13,7 @@ public interface PetDao {
 
     @Query("SELECT * FROM pets WHERE owner_id = :ownerId")
     List<Pet> getPetsByOwnerId(int ownerId);
+
+    @Query("SELECT * FROM pets")
+    List<Pet> getAllPets();
 }

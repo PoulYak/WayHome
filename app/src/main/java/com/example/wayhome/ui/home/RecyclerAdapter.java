@@ -37,10 +37,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MyMy post = arrayList.get(position);
-
-//        holder.title.setText(post.getTitle());
-//        holder.message.setText(post.getMessage());
+//
         holder.postImage.setImageResource(post.getPostImage());
+        holder.message.setText(post.getMessage());
+        holder.title.setText(post.getTitle());
         holder.itemView.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_cardFragment);
         });
@@ -53,8 +53,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView profileImage;
         ImageView postImage;
         TextView title;
         TextView message;
@@ -62,10 +60,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            profileImage = itemView.findViewById(R.id.ivProfile);
             postImage = itemView.findViewById(R.id.ivPost);
-//            title = itemView.findViewById(R.id.title);
-//            message = itemView.findViewById(R.id.message);
+            title = itemView.findViewById(R.id.tvTitle);
+            message = itemView.findViewById(R.id.tvPlaceSaw);
         }
     }
 

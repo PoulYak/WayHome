@@ -12,28 +12,15 @@ public class Pet {
     @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "breed")
-    private String breed;
-
-    @ColumnInfo(name = "phone_number")
-    private String phoneNumber;
-
-    @ColumnInfo(name = "lost_day")
-    private int lostDay;
-
-    @ColumnInfo(name = "birthday")
-    private int birthday;
+    @ColumnInfo(name = "age")
+    private int age;
 
     @ColumnInfo(name = "owner_id")
     private int ownerId;
 
-    public Pet(int id, String name, String breed, String phoneNumber, int lostDay, int birthday, int ownerId) {
-        this.id = id;
+    public Pet(String name, int age, int ownerId) {
         this.name = name;
-        this.breed = breed;
-        this.phoneNumber = phoneNumber;
-        this.lostDay = lostDay;
-        this.birthday = birthday;
+        this.age = age;
         this.ownerId = ownerId;
     }
 
@@ -53,36 +40,12 @@ public class Pet {
         this.name = name;
     }
 
-    public String getBreed() {
-        return breed;
+    public int getAge() {
+        return age;
     }
 
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public int getLostDay() {
-        return lostDay;
-    }
-
-    public void setLostDay(int lostDay) {
-        this.lostDay = lostDay;
-    }
-
-    public int getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(int birthday) {
-        this.birthday = birthday;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public int getOwnerId() {
@@ -92,4 +55,6 @@ public class Pet {
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
     }
+
+    // constructor, getters, and setters
 }

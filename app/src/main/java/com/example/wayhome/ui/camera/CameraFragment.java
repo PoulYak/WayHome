@@ -20,7 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.wayhome.data.room.AppDatabase;
+import com.example.wayhome.data.room.Pet;
 import com.example.wayhome.databinding.FragmentCameraBinding;
+import com.example.wayhome.ui.profile.RecyclerAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,7 +34,8 @@ public class CameraFragment extends Fragment {
     FragmentCameraBinding binding;
     ActivityResultLauncher<Uri> takePictureLauncher;
     CameraViewModel viewModel;
-    private ArrayList<Photo> arrayList;
+
+
 
 
 
@@ -40,6 +44,7 @@ public class CameraFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentCameraBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(CameraViewModel.class);
+
         binding.setViewModel(viewModel);
 
 
@@ -70,34 +75,45 @@ public class CameraFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        arrayList = new ArrayList<>();
-        PhotoRecyclerAdapter recyclerAdapter = new PhotoRecyclerAdapter(arrayList);
+
+        PhotoRecyclerAdapter recyclerAdapter = new PhotoRecyclerAdapter(viewModel.getPhotos());
         binding.recyclerView.setAdapter(recyclerAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
 
-
-
-
         if (viewModel.isActive()){
+
             //checkImagesAndSetThem
 //            binding.ivUser.setImageURI(viewModel.getImageUri());
         }
         else{
+
 //            viewModel.clearImages();
         }
 
 //        viewModel.addPhoto(new Photo(createUri(0)));
         binding.btnTakePicture.setOnClickListener(v -> {
-            arrayList.add(new Photo(createUri(0)));
-            recyclerAdapter.notifyItemInserted(arrayList.size()-1);
+            viewModel.addPhoto(new Photo(createUri(0)));
+            recyclerAdapter.notifyItemInserted(viewModel.getSize()-1);
 //            checkCameraPermissionAndOpenCamera();
+            viewModel.getPetsByOwnerId(3).observe(getViewLifecycleOwner(), pets -> {
+                Log.d("PETS", "Pets");
+                for (Pet p: pets){
+                    Log.d("PETS", p.getName()+" owner->"+p.getOwnerId()+"  age->"+p.getAge());
+                }
+            });
+        });
+
+        binding.nextBtn.setOnClickListener(v -> {
+            String t1,t2,t3;
+            t1 = (binding.edit1.getText()!=null?binding.edit1.getText().toString() :"0");
+            t2 = (binding.edit2.getText()!=null?binding.edit2.getText().toString() :"0");
+            t3 = (binding.edit3.getText()!=null?binding.edit3.getText().toString() :"0");
+            viewModel.insertPet(new Pet(t1, Integer.parseInt(t2), Integer.parseInt(t3)));
         });
 
 
     }
-
-
 
 
 

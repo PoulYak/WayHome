@@ -38,6 +38,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         MyMy post = arrayList.get(position);
 
         holder.postImage.setImageResource(post.getPostImage());
+        holder.breed.setText(post.getBreed());
+        holder.nickname.setText(post.getNickname());
+        holder.status.setText(post.getStatus());
         holder.itemView.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_cardFragment);
         });

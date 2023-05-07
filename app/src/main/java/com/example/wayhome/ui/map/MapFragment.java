@@ -96,6 +96,7 @@ public class MapFragment extends Fragment {
         mBinding.mapview.getMap().addCameraListener(cameraListener);
 
 
+
         if (!viewModel.isActive()){
 
             mBinding.mapview.getMap().move(

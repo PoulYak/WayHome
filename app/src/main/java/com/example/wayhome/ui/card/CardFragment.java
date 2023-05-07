@@ -1,25 +1,38 @@
 package com.example.wayhome.ui.card;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.wayhome.databinding.FragmentCardBinding;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
+import com.yandex.mapkit.layers.GeoObjectTapEvent;
+import com.yandex.mapkit.layers.GeoObjectTapListener;
+import com.yandex.mapkit.map.CameraListener;
 import com.yandex.mapkit.map.CameraPosition;
+import com.yandex.mapkit.map.CameraUpdateReason;
+import com.yandex.mapkit.map.InertiaMoveListener;
+import com.yandex.mapkit.map.InputListener;
+import com.yandex.mapkit.map.Map;
 
 public class CardFragment extends Fragment {
     FragmentCardBinding binding;
     private final Point TARGET_LOCATION = new Point(59.845933, 30.320045);
+
 
 
     @Override
@@ -32,6 +45,18 @@ public class CardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+//        binding.scrollView.stopScroll();
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.mapview.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+
+
         binding.layoutShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +69,7 @@ public class CardFragment extends Fragment {
                 startActivity(sendIntent);
             }
         });
+
 
             binding.mapview.getMap().move(
                     new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
