@@ -1,5 +1,6 @@
 package com.example.wayhome.ui.profile;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.nickname.setText(post.getNickname());
         holder.status.setText(post.getStatus());
         holder.itemView.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_cardFragment);
+            Bundle args = new Bundle();
+            args.putString("petId", post.getId());
+            Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_cardFragment, args);
         });
 
     }

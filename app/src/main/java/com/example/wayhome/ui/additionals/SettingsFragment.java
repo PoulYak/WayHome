@@ -28,10 +28,16 @@ import com.example.wayhome.data.room.AppDatabase;
 import com.example.wayhome.data.room.Pet;
 import com.example.wayhome.data.room.User;
 import com.example.wayhome.databinding.FragmentSettingsBinding;
+import com.example.wayhome.ui.Person;
 import com.example.wayhome.ui.profile.MyMy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -40,7 +46,9 @@ public class SettingsFragment extends Fragment {
     Toolbar toolbar;
     boolean haveMenu = false;
     FirebaseAuth mAuth;
-    private AppDatabase appDatabase;
+    DatabaseReference usersRef;
+    Person person;
+
 
 
     @Override
@@ -49,21 +57,35 @@ public class SettingsFragment extends Fragment {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         mAuth= FirebaseAuth.getInstance();
         Log.d("Firebase", Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber());
-        appDatabase = AppDatabase.getInstance(requireContext());
+        usersRef = FirebaseDatabase.getInstance().getReference("Users");
+
         return binding.getRoot();
     }
+    private void setUpViews(String phone_number){
+        usersRef.child(phone_number).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    person = dataSnapshot.getValue(Person.class);
+                    binding.edit1.setText(person.getName());
+                    binding.edit2.setText(person.getPhone());
+                    binding.edit3.setText(person.getEmail());
+                    if (person.getIs_toggle()==1)
+                        binding.materialSwitch.setChecked(true);
 
+                } else {
+                    // Object with the specified ID does not exist
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle the error
+            }
+        });
+    }
 
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        if (loadUserFromDatabase()==null)
-            Snackbar.make(requireView(), "Добавляем юзера в базу", Snackbar.LENGTH_SHORT).show();
-
+    private void setUpMenu(View view){
         NavController navController = Navigation.findNavController(requireView());
         AppBarConfiguration appBarConfiguration =
                 new AppBarConfiguration.Builder(navController.getGraph()).build();
@@ -74,38 +96,53 @@ public class SettingsFragment extends Fragment {
                 case (R.id.saveProfile):
                     toolbar.getMenu().clear();
                     haveMenu= false;
+                    person.setIs_toggle(binding.materialSwitch.isChecked()?1:0);
+                    person.setEmail(binding.edit3.getText().toString());
+                    person.setName(binding.edit1.getText().toString());
+                    usersRef.child(person.getPhone()).setValue(person);
+
                     break;
             }
             return false;
         });
-        binding.materialSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {if (isChecked) {
+
+    }
+
+
+
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setUpViews(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber());
+        setUpMenu(view);
+
+        binding.materialSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             activateCheck();
-        } else {
-            activateCheck();
-        }
         });
-        binding.edit2.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber());
         binding.edit2.setEnabled(false);
         binding.edit1.addTextChangedListener(tw);
-
         binding.edit3.addTextChangedListener(tw);
 
 
     }
 
-    private User loadUserFromDatabase() {
-            for (User u: appDatabase.userDao().getUserByPhone(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber()))
-                return u;
-            return null;
-    }
 
 
     public void activateCheck(){
+        if (!person.getEmail().equals(binding.edit3.getText().toString()) || !person.getName().equals(binding.edit1.getText().toString()) || person.getIs_toggle()!=(binding.materialSwitch.isChecked()?1:0)) {
             if (!haveMenu){
                 toolbar.inflateMenu(R.menu.temp_menu);
                 haveMenu=true;
 
             }
+        }
+        else{
+            toolbar.getMenu().clear();
+            haveMenu=false;
+        }
+
     }
 
     TextWatcher tw = new TextWatcher() {

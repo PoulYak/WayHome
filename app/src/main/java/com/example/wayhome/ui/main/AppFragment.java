@@ -53,41 +53,30 @@ public class AppFragment extends Fragment {
         return mBinding.getRoot();
     }
 
-    private void insertData(){
-        String name = "name";
-        String email = "yyyyyyyyy@mail.ru";
-        String phone = "+78005553535";
-        Person u = new Person(name, email, phone);
-//        usersRef.push().setValue(u);
-        assert phone != null;
-        usersRef.child(phone).setValue(u);
-
-        usersRef.orderByChild("phone").equalTo("+79134291752").addValueEventListener(new ValueEventListener() {
+    private void insertData() {
+        String phone = mAuth.getCurrentUser().getPhoneNumber();
+        usersRef.child(phone).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and whenever data at the specified database reference changes.
+                if (dataSnapshot.exists()) {
+                } else {
+                    // Object with the specified ID does not exist
+                    String name = "";
+                    String email = "";
 
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    // Retrieve the User object
-                    Person user = userSnapshot.getValue(Person.class);
+                    Person u = new Person(name, email, phone, 0);
+                    usersRef.child(phone).setValue(u);
 
-//                     Do something with the user object
-                    if (user != null) {
-                        String name = user.getName();
-                        String email = user.getEmail();
-                        String phone = user.getPhone();
-
-
-                        Log.d("FIREDATABASE", name+" "+email+" "+phone);
-                    }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // This method is called if there is an error retrieving the data.
+                // Handle the error
             }
         });
+
+//        usersRef.push().setValue(u);
     }
 
 

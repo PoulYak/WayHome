@@ -11,17 +11,17 @@ public class MyMy {
     }
 
     private int postImage;
-    private String nickname = "";
+    private String nickname = "-";
     private String status = "Потерян";
     private String breed = "Йорк";
-    private String sex = "";
-    private String birthday = "";
-    private String color = "";
-    private String chip_number = "";
-    private String stigma_number = "";
-    private String phone_number = "";
-    private String comment = "";
-    private String features = "";
+    private String sex = "-";
+    private String birthday = "-";
+    private String color = "-";
+    private String chip_number = "-";
+    private String stigma_number = "-";
+    private String phone_number = "-";
+    private String comment = "-";
+    private String features = "-";
     private float latitude = 0;
     private float longitude = 0;
     private boolean have_collar = false;
