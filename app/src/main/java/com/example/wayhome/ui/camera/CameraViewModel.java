@@ -12,6 +12,13 @@ import androidx.lifecycle.ViewModel;
 import com.example.wayhome.data.room.AppDatabase;
 import com.example.wayhome.data.room.Pet;
 import com.example.wayhome.data.room.PetRepository;
+import com.example.wayhome.data.room.User;
+import com.example.wayhome.ui.profile.MyMy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +29,8 @@ public class CameraViewModel extends AndroidViewModel {
     private ArrayList<Photo> arrayList = new ArrayList<>();
     private final PetRepository petRepository;
     private final MutableLiveData<List<Pet>> petsLiveData;
-
+    DatabaseReference petsRef;
+    long amountOfPets=0;
 
 
     boolean isActive = false;
@@ -32,10 +40,29 @@ public class CameraViewModel extends AndroidViewModel {
         AppDatabase appDatabase = AppDatabase.getInstance(application);
         this.petRepository = new PetRepository(appDatabase);
         this.petsLiveData = new MutableLiveData<>();
+        petsRef = FirebaseDatabase.getInstance().getReference("Pets");
+        petsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                amountOfPets = dataSnapshot.getChildrenCount();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle the error
+            }
+        });
     }
 
-    public void insertPet(Pet pet) {
-        petRepository.insertPet(pet);
+//    public void insertPet(Pet pet) {
+//        petRepository.insertPet(pet);
+//    }
+
+
+    public void insertPet(MyMy pet) {
+        pet.setId("pet"+amountOfPets);
+        petsRef.child(pet.getId()).setValue(pet);
     }
 
     public LiveData<List<Pet>> getPetsByOwnerId(int ownerId) {
@@ -43,6 +70,7 @@ public class CameraViewModel extends AndroidViewModel {
             List<Pet> pets = petRepository.getPetsByOwnerId(ownerId);
             petsLiveData.postValue(pets);
         }).start();
+
         return petsLiveData;
     }
 

@@ -38,7 +38,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.5.1"
     androidTestImplementation "androidx.room:room-testing:2.5.1"
 
-
+    implementation 'com.google.firebase:firebase-database:20.0.0'
     implementation 'com.yandex.android:maps.mobile:4.3.1-lite'
     implementation 'com.google.firebase:firebase-auth:21.3.0'
     implementation "ru.tinkoff.decoro:decoro:1.1.1"
@@ -50,7 +50,6 @@ dependencies {
     implementation 'android.arch.lifecycle:viewmodel:1.1.1'
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
-    implementation 'com.google.firebase:firebase-auth-ktx:21.3.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

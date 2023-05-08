@@ -15,8 +15,16 @@ public class User {
     @ColumnInfo(name = "email")
     private String email;
 
+    @ColumnInfo(name = "phone")
+    private String phone;
+
     // constructor, getters, and setters
 
+    public User(String name, String email, String phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
 
     public int getId() {
         return id;
@@ -24,11 +32,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
     }
 
     public String getName() {
@@ -45,5 +48,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

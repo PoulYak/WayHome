@@ -25,10 +25,12 @@ import com.example.wayhome.R;
 import com.example.wayhome.data.room.AppDatabase;
 import com.example.wayhome.data.room.Pet;
 import com.example.wayhome.databinding.FragmentCameraBinding;
+import com.example.wayhome.ui.profile.MyMy;
 import com.example.wayhome.ui.profile.RecyclerAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CameraFragment extends Fragment {
 
@@ -113,11 +115,17 @@ public class CameraFragment extends Fragment {
         });
 
         binding.nextBtn.setOnClickListener(v -> {
-            String t1,t2,t3;
-            t1 = (binding.edit1.getText()!=null?binding.edit1.getText().toString() :"0");
-            t2 = (binding.edit2.getText()!=null?binding.edit2.getText().toString() :"0");
-            t3 = (binding.edit3.getText()!=null?binding.edit3.getText().toString() :"0");
-            viewModel.insertPet(new Pet(t1, Integer.parseInt(t2), Integer.parseInt(t3)));
+            String name_s = Objects.requireNonNull(binding.edit1.getText()).toString();
+            String sex_s = Objects.requireNonNull(binding.edit2.getText()).toString();
+            String birthday_s = Objects.requireNonNull(binding.edit3.getText()).toString();
+            String breed_s = Objects.requireNonNull(binding.edit4.getText()).toString();
+            String color_s = Objects.requireNonNull(binding.edit5.getText()).toString();
+            MyMy m = new MyMy(R.drawable.pets, name_s, "Потерян", breed_s);
+            m.setBirthday(birthday_s);
+            m.setColor(color_s);
+            m.setSex(sex_s);
+
+            viewModel.insertPet(m);
         });
 
 
@@ -135,6 +143,8 @@ public class CameraFragment extends Fragment {
                 imageFile
         );
     }
+
+
 
 //    private void registerPictureLauncher() {
 //        takePictureLauncher = registerForActivityResult(

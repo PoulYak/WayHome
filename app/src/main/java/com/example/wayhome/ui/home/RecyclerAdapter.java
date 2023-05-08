@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wayhome.R;
+import com.example.wayhome.ui.profile.MyMy;
 
 import java.util.ArrayList;
 
@@ -39,8 +40,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         MyMy post = arrayList.get(position);
 //
         holder.postImage.setImageResource(post.getPostImage());
-        holder.message.setText(post.getMessage());
-        holder.title.setText(post.getTitle());
+        holder.message.setText(post.getStatus());
+        holder.title.setText(post.getNickname());
         holder.itemView.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_cardFragment);
         });

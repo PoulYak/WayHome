@@ -20,9 +20,15 @@ import android.widget.Toast;
 import com.example.wayhome.R;
 import com.example.wayhome.data.room.AppDatabase;
 import com.example.wayhome.data.room.Pet;
+import com.example.wayhome.data.room.User;
 import com.example.wayhome.databinding.FragmentProfileBinding;
 import com.example.wayhome.ui.profile.MyMy;
 import com.example.wayhome.ui.profile.RecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +37,9 @@ public class ProfileFragment extends Fragment {
     FragmentProfileBinding mBinding;
     RecyclerAdapter recyclerAdapter;
     private AppDatabase appDatabase;
+    DatabaseReference fireDatabase;
+
+
 
 
     private ArrayList<MyMy> arrayList;
@@ -39,33 +48,42 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         appDatabase = AppDatabase.getInstance(requireContext());
+        fireDatabase = FirebaseDatabase.getInstance().getReference("Pets");
         mBinding = FragmentProfileBinding.inflate(inflater, container, false);
 
         arrayList = new ArrayList<>();
 
-        arrayList.add(new MyMy(R.drawable.camera, "Jack", "Потерян", "Гончая"));
-        arrayList.add(new MyMy(R.drawable.camera, "Jack", "Потерян", "Гончая"));
-        arrayList.add(new MyMy(R.drawable.camera, "Jack", "Потерян", "Гончая"));
-        arrayList.add(new MyMy(R.drawable.camera, "Jack", "Потерян", "Гончая"));
-        arrayList.add(new MyMy(R.drawable.camera, "Jack", "Потерян", "Гончая"));
         recyclerAdapter = new RecyclerAdapter(arrayList);
 
         mBinding.recyclerView.setAdapter(recyclerAdapter);
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        loadPetsFromDatabase();
+
+//        String userId = "unique_user_id"; // Generate a unique ID for the user
+
+//        loadPetsFromDatabase();
+        fireDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList.clear();
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    MyMy u = dataSnapshot.getValue(MyMy.class);
+                    arrayList.add(u);
+                }
+                recyclerAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         return mBinding.getRoot();
 
     }
 
-//    public LiveData<List<Pet>> getPetsByOwnerId(int ownerId) {
-//        new Thread(() -> {
-//            List<Pet> pets = petRepository.getPetsByOwnerId(ownerId);
-//            petsLiveData.postValue(pets);
-//        }).start();
-//        return petsLiveData;
-//    }
 
 
     private void loadPetsFromDatabase() {
@@ -80,15 +98,4 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mBinding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(requireContext(), "Открытие формы", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }

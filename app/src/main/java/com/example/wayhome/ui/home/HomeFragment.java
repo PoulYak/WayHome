@@ -18,12 +18,18 @@ import com.example.wayhome.R;
 import com.example.wayhome.data.room.AppDatabase;
 import com.example.wayhome.data.room.Pet;
 import com.example.wayhome.databinding.FragmentHomeBinding;
+import com.example.wayhome.ui.profile.MyMy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
-
+    DatabaseReference fireDatabase;
     private ArrayList<MyMy> arrayList;
     RecyclerAdapter recyclerAdapter;
     private AppDatabase appDatabase;
@@ -36,7 +42,7 @@ public class HomeFragment extends Fragment {
         arrayList = new ArrayList<>();
 
         recyclerAdapter = new RecyclerAdapter(arrayList);
-
+        fireDatabase = FirebaseDatabase.getInstance().getReference("Pets");
         binding.recyclerView.setAdapter(recyclerAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -49,17 +55,25 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadPetsFromDatabase();
-    }
+        fireDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                new Thread(() -> {
+                    arrayList.clear();
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                        MyMy u = dataSnapshot.getValue(MyMy.class);
+                        arrayList.add(u);
+                    }
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(() -> recyclerAdapter.notifyDataSetChanged());
+                }).start();
 
-    private void loadPetsFromDatabase() {
-        new Thread(() -> {
-            arrayList.clear();
-            for (Pet p: appDatabase.petDao().getAllPets())
-                arrayList.add(new MyMy(R.drawable.camera, R.drawable.camera, p.getName(), String.valueOf(p.getAge()) ));
+            }
 
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(() -> recyclerAdapter.notifyDataSetChanged());
-        }).start();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
