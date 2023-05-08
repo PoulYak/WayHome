@@ -21,16 +21,25 @@ import android.widget.Toast;
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentFeedBackBinding;
 import com.example.wayhome.databinding.FragmentShareBinding;
+import com.example.wayhome.ui.Support;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class FeedBackFragment extends Fragment {
     FragmentFeedBackBinding binding;
+    DatabaseReference supportRef;
+    FirebaseAuth mAuth;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentFeedBackBinding.inflate(inflater, container, false);
+        supportRef = FirebaseDatabase.getInstance().getReference("Supports");
+        mAuth= FirebaseAuth.getInstance();
         return binding.getRoot();
     }
 
@@ -47,11 +56,14 @@ public class FeedBackFragment extends Fragment {
 
         binding.sendButton.setOnClickListener(v -> {
             if (binding.textInput.getText().length()<3)
-                Toast.makeText(requireContext(), "Слишком короткое сообщение", Toast.LENGTH_SHORT).show();
+                Snackbar.make(requireView(), "Слишком короткое сообщение", Snackbar.LENGTH_SHORT).show();
             else{
-                //todo Добавлять вопрос в бд на firebase
+                Support s = new Support();
+                s.setPhone(mAuth.getCurrentUser().getPhoneNumber());
+                s.setMessage(binding.textInput.getText().toString());
+                supportRef.push().setValue(s);
                 binding.textInput.setText("");
-                Toast.makeText(requireContext(), "Ваше сообщение успешно отправлено в поддержку", Toast.LENGTH_SHORT).show();
+                Snackbar.make(requireView(), "Ваше сообщение успешно отправлено в поддержку", Snackbar.LENGTH_SHORT).show();
 
             }
 

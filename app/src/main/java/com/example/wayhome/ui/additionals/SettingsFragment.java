@@ -56,7 +56,6 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         mAuth= FirebaseAuth.getInstance();
-        Log.d("Firebase", Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber());
         usersRef = FirebaseDatabase.getInstance().getReference("Users");
 
         return binding.getRoot();
