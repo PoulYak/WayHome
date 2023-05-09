@@ -1,5 +1,8 @@
 package com.example.wayhome.ui.camera;
 
+
+import static android.app.Activity.RESULT_OK;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -33,6 +36,9 @@ import com.example.wayhome.ui.camera.getlocation.GetLocationFragment;
 import com.example.wayhome.ui.profile.MyMy;
 import com.example.wayhome.ui.profile.RecyclerAdapter;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
+import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.map.CameraListener;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.map.CameraUpdateReason;
@@ -45,9 +51,12 @@ import java.util.Objects;
 public class CameraFragment extends Fragment {
 
     private static final int CAMERA_PERMISSION_CODE = 1;
+    private static final int PICK_IMAGE_REQUEST = 1;
     FragmentCameraBinding binding;
     ActivityResultLauncher<Uri> takePictureLauncher;
     CameraViewModel viewModel;
+
+
 
 
 
@@ -72,12 +81,16 @@ public class CameraFragment extends Fragment {
 
 
         if (viewModel.isActive()){
+            if (viewModel.isPhoto())
+                binding.ivSuccess.setVisibility(View.VISIBLE);
+            if (viewModel.isMap())
+                binding.ivSuccess2.setVisibility(View.VISIBLE);
 
             //checkImagesAndSetThem
 //            binding.ivUser.setImageURI(viewModel.getImageUri());
         }
         else{
-
+            viewModel.setActive(true);
 //            viewModel.clearImages();
         }
 
@@ -100,15 +113,17 @@ public class CameraFragment extends Fragment {
             binding.haveSelectedBtn.setVisibility(View.INVISIBLE);
             binding.pointer.setVisibility(View.INVISIBLE);
             viewModel.setSelected(true);
-            binding.tvLatitude.setText(String.valueOf(viewModel.getLatitude()));
-            binding.tvLongitude.setText(String.valueOf(viewModel.getLongitude()));
+            viewModel.setMap(true);
+            binding.ivSuccess2.setVisibility(View.VISIBLE);
+
         });
 
 
         binding.btnTakePicture.setOnClickListener(v -> {
-            viewModel.addPhoto(new Photo(createUri(0)));
-            recyclerAdapter.notifyItemInserted(viewModel.getSize()-1);
-//            checkCameraPermissionAndOpenCamera();
+            openFileChooser();
+//            viewModel.addPhoto(new Photo(createUri(0)));
+//            recyclerAdapter.notifyItemInserted(viewModel.getSize()-1);
+//            checkCameraPermissi.onAndOpenCamera();
         });
 
         binding.nextBtn.setOnClickListener(v -> {
@@ -122,9 +137,11 @@ public class CameraFragment extends Fragment {
             MyMy m = new MyMy(R.drawable.pets, name_s, "Потерян", breed_s);
             m.setBirthday(birthday_s);
             m.setColor(color_s);
+            //todo добавить всё
             m.setSex(sex_s);
             m.setLatitude(viewModel.getLatitude());
             m.setLongitude(viewModel.getLongitude());
+            viewModel.uploadFile(requireContext(), requireActivity());
             viewModel.insertPet(m);
         });
 
@@ -146,7 +163,65 @@ public class CameraFragment extends Fragment {
     }
 
 
-//    private void registerPictureLauncher() {
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+    CameraListener cameraListener = new CameraListener() {
+        @Override
+        public void onCameraPositionChanged(@NonNull Map map, @NonNull CameraPosition cameraPosition, @NonNull CameraUpdateReason cameraUpdateReason, boolean b) {
+            viewModel.setLatitude(cameraPosition.getTarget().getLatitude());
+            viewModel.setLongitude(cameraPosition.getTarget().getLongitude());
+
+
+        }
+    };
+
+    private void openFileChooser(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data!=null && data.getData()!=null){
+            viewModel.setImageUri(data.getData());
+            binding.ivSuccess.setVisibility(View.VISIBLE);
+            viewModel.setPhoto(true);
+
+        }
+    }
+
+
+
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        binding.mapView.onStart();
+        MapKitFactory.getInstance().onStart();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        binding.mapView.onStop();
+        MapKitFactory.getInstance().onStop();
+    }
+
+
+
+
+
+    //    private void registerPictureLauncher() {
 //        takePictureLauncher = registerForActivityResult(
 //                new ActivityResultContracts.TakePicture(),
 //                result -> {
@@ -187,19 +262,4 @@ public class CameraFragment extends Fragment {
 //                Toast.makeText(requireContext(), "Camera permission denied, please allow permission to take a photo", Toast.LENGTH_SHORT).show();
 //        }
 //    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-    CameraListener cameraListener = new CameraListener() {
-        @Override
-        public void onCameraPositionChanged(@NonNull Map map, @NonNull CameraPosition cameraPosition, @NonNull CameraUpdateReason cameraUpdateReason, boolean b) {
-            viewModel.setLatitude(cameraPosition.getTarget().getLatitude());
-            viewModel.setLongitude(cameraPosition.getTarget().getLongitude());
-
-
-        }
-    };
 }

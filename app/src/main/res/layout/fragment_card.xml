@@ -15,12 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
+        <ImageView
+            android:id="@+id/dogPhoto"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@color/surface6"
-            android:text="Photos"
-            android:textSize="30sp"
             android:gravity="center"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_marginTop="24dp"
@@ -98,7 +97,7 @@
                 android:layout_marginBottom="16dp">
                 <ImageView
                     android:padding="2dp"
-                    android:src="@drawable/planet"
+                    android:src="@drawable/collar"
                     android:id="@+id/ivСollar"
                     android:layout_width="24dp"
                     android:layout_height="24dp"

@@ -197,7 +197,16 @@ public class MapFragment extends Fragment {
         return false;
     };
 
-
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        mBinding.mapview.onStart();
+        MapKitFactory.getInstance().onStart();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        mBinding.mapview.onStop();
+        MapKitFactory.getInstance().onStop();
+    }
 }

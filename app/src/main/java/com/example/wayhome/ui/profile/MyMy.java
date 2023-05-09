@@ -25,6 +25,15 @@ public class MyMy {
     private double latitude = 0;
     private double longitude = 0;
     private boolean have_collar = false;
+    private String image_path = "";
+
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
 
     public MyMy(int postImage, String nickname, String status, String breed) {
         this.postImage = postImage;
