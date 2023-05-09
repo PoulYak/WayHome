@@ -268,6 +268,7 @@ public class CameraFragment extends Fragment {
         binding.edit13.setText("");
         binding.edit7.setText("");
         binding.edit8.setText("");
+        binding.edit10.setText("");
     }
 
 
