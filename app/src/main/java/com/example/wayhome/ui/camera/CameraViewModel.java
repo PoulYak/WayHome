@@ -30,6 +30,36 @@ public class CameraViewModel extends AndroidViewModel {
     private final PetRepository petRepository;
     private final MutableLiveData<List<Pet>> petsLiveData;
     DatabaseReference petsRef;
+    private double longitude = 0.0f;
+    private double latitude = 0.0f;
+    private boolean isSelected = false;
+
+
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
     long amountOfPets=0;
 
 

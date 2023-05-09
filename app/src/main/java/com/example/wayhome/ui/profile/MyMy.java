@@ -22,8 +22,8 @@ public class MyMy {
     private String phone_number = "-";
     private String comment = "-";
     private String features = "-";
-    private float latitude = 0;
-    private float longitude = 0;
+    private double latitude = 0;
+    private double longitude = 0;
     private boolean have_collar = false;
 
     public MyMy(int postImage, String nickname, String status, String breed) {
@@ -118,19 +118,19 @@ public class MyMy {
         this.features = features;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

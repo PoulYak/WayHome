@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -122,6 +123,9 @@ public class CameraFragment extends Fragment {
             binding.mapView.setVisibility(View.INVISIBLE);
             binding.haveSelectedBtn.setVisibility(View.INVISIBLE);
             binding.pointer.setVisibility(View.INVISIBLE);
+            viewModel.setSelected(true);
+            binding.tvLatitude.setText(String.valueOf(viewModel.getLatitude()));
+            binding.tvLongitude.setText(String.valueOf(viewModel.getLongitude()));
         });
 
 
@@ -129,12 +133,6 @@ public class CameraFragment extends Fragment {
             viewModel.addPhoto(new Photo(createUri(0)));
             recyclerAdapter.notifyItemInserted(viewModel.getSize()-1);
 //            checkCameraPermissionAndOpenCamera();
-            viewModel.getPetsByOwnerId(3).observe(getViewLifecycleOwner(), pets -> {
-                Log.d("PETS", "Pets");
-                for (Pet p: pets){
-                    Log.d("PETS", p.getName()+" owner->"+p.getOwnerId()+"  age->"+p.getAge());
-                }
-            });
         });
 
         binding.nextBtn.setOnClickListener(v -> {
@@ -148,7 +146,8 @@ public class CameraFragment extends Fragment {
             m.setBirthday(birthday_s);
             m.setColor(color_s);
             m.setSex(sex_s);
-
+            m.setLatitude(viewModel.getLatitude());
+            m.setLongitude(viewModel.getLongitude());
             viewModel.insertPet(m);
         });
 
@@ -220,8 +219,9 @@ public class CameraFragment extends Fragment {
     CameraListener cameraListener = new CameraListener() {
         @Override
         public void onCameraPositionChanged(@NonNull Map map, @NonNull CameraPosition cameraPosition, @NonNull CameraUpdateReason cameraUpdateReason, boolean b) {
-            if (binding.mapView.getVisibility()==View.VISIBLE)
-                Snackbar.make(binding.mapView, "Перемещай ещё", Toast.LENGTH_SHORT).show();
+            viewModel.setLatitude(cameraPosition.getTarget().getLatitude());
+            viewModel.setLongitude(cameraPosition.getTarget().getLongitude());
+
 
         }
     };

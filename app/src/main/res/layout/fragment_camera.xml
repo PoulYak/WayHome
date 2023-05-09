@@ -440,12 +440,15 @@
                     app:layout_constraintTop_toBottomOf="@+id/article20">
 
                     <TextView
+                        android:id="@+id/tvLatitude"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:layout_marginEnd="16dp"
                         android:text="Широта"/>
 
                     <TextView
+                        android:id="@+id/tvLongitude"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
+import com.example.wayhome.R;
 import com.example.wayhome.data.room.User;
 import com.example.wayhome.databinding.FragmentCardBinding;
 import com.example.wayhome.ui.profile.MyMy;
@@ -36,6 +37,8 @@ import com.yandex.mapkit.map.CameraUpdateReason;
 import com.yandex.mapkit.map.InertiaMoveListener;
 import com.yandex.mapkit.map.InputListener;
 import com.yandex.mapkit.map.Map;
+import com.yandex.mapkit.map.PlacemarkMapObject;
+import com.yandex.runtime.image.ImageProvider;
 
 public class CardFragment extends Fragment {
     FragmentCardBinding binding;
@@ -146,11 +149,14 @@ public class CardFragment extends Fragment {
         });
     }
 
-    private void setUpMap(float longitude, float latitude){
+    private void setUpMap(double longitude, double latitude){
         TARGET_LOCATION = new Point(latitude, longitude);
         binding.mapview.getMap().move(
                 new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),
                 null);
+        PlacemarkMapObject mark1= binding.mapview.getMap().getMapObjects().addPlacemark(TARGET_LOCATION);
+        mark1.setOpacity(1.0f);
+        mark1.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.dog1));
     }
 }
