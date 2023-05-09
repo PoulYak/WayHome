@@ -10,22 +10,31 @@ public class MyMy {
         this.id = id;
     }
 
-    private int postImage;
-    private String nickname = "-";
-    private String status = "Потерян";
-    private String breed = "Йорк";
-    private String sex = "-";
-    private String birthday = "-";
-    private String color = "-";
-    private String chip_number = "-";
-    private String stigma_number = "-";
-    private String phone_number = "-";
-    private String comment = "-";
-    private String features = "-";
-    private double latitude = 0;
-    private double longitude = 0;
-    private boolean have_collar = false;
-    private String image_path = "";
+    private int postImage;                    //+
+    private String nickname = "-";            //+
+    private String status = "Потерян";        //+
+    private String breed = "Йорк";            //+
+    private String sex = "-";                 //+
+    private String birthday = "-";            //+
+    private String color = "-";               //+
+    private String chip_number = "-";         //+
+    private String stigma_number = "-";       //+
+    private String phone_number = "-";        //+
+    private String comment = "-";             //+
+    private String features = "-";            //+
+    private double latitude = 0;              //+
+    private double longitude = 0;             //+
+    private String collar = "";               //+
+    private String image_path = "";           //+
+    private String placeComment = "";           //+
+
+    public String getPlaceComment() {
+        return placeComment;
+    }
+
+    public void setPlaceComment(String placeComment) {
+        this.placeComment = placeComment;
+    }
 
     public String getImage_path() {
         return image_path;
@@ -57,7 +66,14 @@ public class MyMy {
         this.features = features;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.have_collar = have_collar;
+    }
+
+    public String getCollar() {
+        return collar;
+    }
+
+    public void setCollar(String collar) {
+        this.collar = collar;
     }
 
     public MyMy() {
@@ -143,13 +159,6 @@ public class MyMy {
         this.longitude = longitude;
     }
 
-    public boolean isHave_collar() {
-        return have_collar;
-    }
-
-    public void setHave_collar(boolean have_collar) {
-        this.have_collar = have_collar;
-    }
 
     public void setPostImage(int postImage) {
         this.postImage = postImage;

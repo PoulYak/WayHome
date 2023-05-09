@@ -124,13 +124,15 @@ public class CardFragment extends Fragment {
     }
 
 
-
     private void setUpViews(String petId){
         petsRef.child(petId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     MyMy m = dataSnapshot.getValue(MyMy.class);
+
+
+
                     binding.tvNickname.setText(m.getNickname());
                     binding.tvBreed.setText(m.getBreed());
                     binding.tvCommentVal.setText(m.getComment());
@@ -139,11 +141,17 @@ public class CardFragment extends Fragment {
                     binding.tvColorVal.setText(m.getColor());
                     binding.tvStigmaVal.setText(m.getStigma_number());
                     binding.tvFeaturesVal.setText(m.getFeatures());
-                    binding.tvOllar.setText(m.isHave_collar()?"В ошейнике":"Без ошейника");
+                    binding.tvOllar.setText(m.getCollar());
                     binding.tvPhoneNumber.setText("Звонить "+m.getPhone_number());
-
-
-
+                    binding.tvDate.setText(m.getBirthday());
+                    binding.tvPlaceVal.setText(m.getPlaceComment());
+                    if (m.getSex().equals("Девочка"))
+                        binding.ivSex.setImageDrawable(getResources().getDrawable(R.drawable.female));
+                    binding.tvStatus.setText(m.getStatus());
+                    if (m.getStatus().equals("Потерян"))
+                        binding.tvStatus.setTextColor(getResources().getColor(R.color.red));
+                    else
+                        binding.tvStatus.setTextColor(getResources().getColor(R.color.green));
                     Toast.makeText(requireContext(), m.getImage_path(), Toast.LENGTH_SHORT).show();
 
                     setUpMap(m.getLongitude(), m.getLatitude());

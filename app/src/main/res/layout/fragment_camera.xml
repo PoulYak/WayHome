@@ -141,7 +141,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/article2"
                     android:layout_height="wrap_content">
                     <Button
-                        android:id="@+id/button1"
+                        android:id="@+id/button21"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                         style="?attr/materialButtonOutlinedStyle"
                         />
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/button22"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

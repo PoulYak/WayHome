@@ -38,7 +38,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MyMy post = arrayList.get(position);
 
-        holder.postImage.setImageResource(post.getPostImage());
+//        holder.postImage.setImageResource(post.getPostImage());
         holder.breed.setText(post.getBreed());
         holder.nickname.setText(post.getNickname());
         holder.status.setText(post.getStatus());

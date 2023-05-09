@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/dogPhoto"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:background="@color/surface6"
             android:gravity="center"/>
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,19 +28,19 @@
             android:paddingHorizontal="16dp"
             android:layout_marginBottom="24dp">
             <TextView
-                android:id="@+id/tvBreed"
+                android:id="@+id/tvStatus"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Йорк"
+                android:text="Потерян"
                 style="@style/My.Body2"
                 android:textColor="@color/primary"/>
             <TextView
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tvBreed"
+                app:layout_constraintTop_toBottomOf="@+id/tvStatus"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:text="Султан"
                 android:id="@+id/tvNickname"
@@ -76,7 +76,7 @@
                 android:layout_marginBottom="8dp">
                 <ImageView
                     android:padding="2dp"
-                    android:src="@drawable/planet"
+                    android:src="@drawable/male"
                     android:id="@+id/ivSex"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="8dp">
                 <ImageView
                     android:padding="2dp"
                     android:src="@drawable/collar"
@@ -110,6 +110,29 @@
                     android:text="Без ошейника"
                     style="@style/My.Body1"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+                <ImageView
+                    android:padding="2dp"
+                    android:src="@drawable/pets"
+                    android:id="@+id/ivBreed"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="4dp"
+                    />
+                <TextView
+                    android:id="@+id/tvBreed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Йорк"
+                    style="@style/My.Body1"/>
+            </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

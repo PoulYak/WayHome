@@ -19,7 +19,8 @@
             android:id="@+id/ivPost"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/logo"
+            android:scaleType="centerInside"
+            android:src="@drawable/pets"
             app:layout_constraintTop_toTopOf="parent"
             />
         <TextView

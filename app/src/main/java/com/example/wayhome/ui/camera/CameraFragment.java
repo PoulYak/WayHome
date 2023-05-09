@@ -127,22 +127,48 @@ public class CameraFragment extends Fragment {
         });
 
         binding.nextBtn.setOnClickListener(v -> {
-            String name_s = Objects.requireNonNull(binding.edit1.getText()).toString();
+            if (checkEdits()){
+                String name_s = Objects.requireNonNull(binding.edit1.getText()).toString();
 
-//            String sex_s = Objects.requireNonNull(binding.edit2.getText()).toString();
-            String sex_s = "Сука";
-            String birthday_s = Objects.requireNonNull(binding.edit3.getText()).toString();
-            String breed_s = Objects.requireNonNull(binding.edit4.getText()).toString();
-            String color_s = Objects.requireNonNull(binding.edit5.getText()).toString();
-            MyMy m = new MyMy(R.drawable.pets, name_s, "Потерян", breed_s);
-            m.setBirthday(birthday_s);
-            m.setColor(color_s);
-            //todo добавить всё
-            m.setSex(sex_s);
-            m.setLatitude(viewModel.getLatitude());
-            m.setLongitude(viewModel.getLongitude());
-            viewModel.uploadFile(requireContext(), requireActivity());
-            viewModel.insertPet(m);
+                String sex_s = (binding.edit2.getCheckedButtonId()==R.id.button21)?"Мальчик":"Девочка";
+                String collar_s = (binding.edit15.getCheckedButtonId()==R.id.button150)?"В ошейнике":"Без ошейника";
+                String birthday_s = Objects.requireNonNull(binding.edit3.getText()).toString();
+                String breed_s = Objects.requireNonNull(binding.edit4.getText()).toString();
+                String color_s = Objects.requireNonNull(binding.edit5.getText()).toString();
+                String status_s = (binding.edit0.getCheckedButtonId()==R.id.button01)?"Потерян":"Найден";
+                MyMy m = new MyMy(R.drawable.pets, name_s, status_s, breed_s);
+                m.setBirthday(birthday_s);
+                m.setColor(color_s);
+                m.setCollar(collar_s);
+
+                m.setSex(sex_s);
+                m.setLatitude(viewModel.getLatitude());
+                m.setLongitude(viewModel.getLongitude());
+                String chip_s = (!binding.edit6.getText().toString().equals("")?binding.edit6.getText().toString():"-");
+                m.setChip_number(chip_s);
+                m.setPlaceComment(binding.edit10.getText().toString());
+                String stigma_s = (!binding.edit14.getText().toString().equals("")?binding.edit14.getText().toString():"-");
+                m.setPhone_number(binding.edit13.getText().toString());
+                m.setComment(binding.edit7.getText().toString());
+                m.setFeatures(binding.edit8.getText().toString());
+                m.setStigma_number(stigma_s);
+
+//            Toast.makeText(requireContext(), String.valueOf(binding.edit0.getCheckedButtonId()), Toast.LENGTH_SHORT).show();
+
+                viewModel.uploadFile(requireContext(), requireActivity());
+                viewModel.insertPet(m);
+                Snackbar.make(view, "Ваша форма успешно отправлена",Snackbar.LENGTH_SHORT).show();
+                resetData();
+
+
+
+            }
+            else{
+                Snackbar.make(view, "Введены не все данные",Snackbar.LENGTH_SHORT).show();
+            }
+
+
+
         });
 
 
@@ -163,7 +189,13 @@ public class CameraFragment extends Fragment {
     }
 
 
-
+    private boolean checkEdits(){
+        if (viewModel.isPhoto() && viewModel.isMap() && binding.edit0.getCheckedButtonId()!=-1
+                && !binding.edit1.getText().toString().isEmpty() &&  binding.edit2.getCheckedButtonId()!=-1 &&
+                !binding.edit3.getText().toString().isEmpty() && !binding.edit13.getText().toString().isEmpty() && binding.edit2.getCheckedButtonId()!=-1)
+            return true;
+        return false;
+    }
 
     @Override
     public void onDestroyView() {
@@ -217,6 +249,26 @@ public class CameraFragment extends Fragment {
         MapKitFactory.getInstance().onStop();
     }
 
+    private void resetData(){
+        viewModel.setLatitude(0);
+        viewModel.setLongitude(0);
+        viewModel.setMap(false);
+        viewModel.setPhoto(false);
+        binding.ivSuccess.setVisibility(View.GONE);
+        binding.ivSuccess2.setVisibility(View.GONE);
+        binding.edit0.clearChecked();
+        binding.edit2.clearChecked();
+        binding.edit15.clearChecked();
+        binding.edit1.setText("");
+        binding.edit3.setText("");
+        binding.edit4.setText("");
+        binding.edit5.setText("");
+        binding.edit6.setText("");
+        binding.edit14.setText("");
+        binding.edit13.setText("");
+        binding.edit7.setText("");
+        binding.edit8.setText("");
+    }
 
 
 
@@ -262,4 +314,5 @@ public class CameraFragment extends Fragment {
 //                Toast.makeText(requireContext(), "Camera permission denied, please allow permission to take a photo", Toast.LENGTH_SHORT).show();
 //        }
 //    }
+
 }
