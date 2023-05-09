@@ -1,5 +1,7 @@
 package com.example.wayhome.ui.camera.getlocation;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,6 +51,13 @@ public class GetLocationFragment extends Fragment {
         mark1.setOpacity(0.7f);
         mark1.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.dog1));
         binding.mapview.getMap().addCameraListener(cameraListener);
+
+        binding.haveSelectedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

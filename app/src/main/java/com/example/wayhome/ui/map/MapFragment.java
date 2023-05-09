@@ -92,8 +92,6 @@ public class MapFragment extends Fragment {
 
 
         mBinding.mapview.getMap().addInputListener(inputListener);
-        mBinding.mapview.getMap().addCameraListener(cameraListener);
-
 
 
         if (!viewModel.isActive()){
@@ -240,18 +238,6 @@ public class MapFragment extends Fragment {
             Toast.makeText(requireContext(), "Пёсель пропал", Toast.LENGTH_SHORT).show();
             mapObject.setVisible(false);
             return false;
-        }
-    };
-
-    CameraListener cameraListener = new CameraListener() {
-        @Override
-        public void onCameraPositionChanged(@NonNull Map map, @NonNull CameraPosition cameraPosition, @NonNull CameraUpdateReason cameraUpdateReason, boolean b) {
-
-
-            mark1.setGeometry(cameraPosition.getTarget());
-
-//            Snackbar.make(mBinding.mapview, "Перемещай ещё", Toast.LENGTH_SHORT).show();
-
         }
     };
 
