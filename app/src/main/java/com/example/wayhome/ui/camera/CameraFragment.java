@@ -48,7 +48,6 @@ public class CameraFragment extends Fragment {
     FragmentCameraBinding binding;
     ActivityResultLauncher<Uri> takePictureLauncher;
     CameraViewModel viewModel;
-    int REQUEST_CODE=1;
 
 
 
@@ -60,29 +59,6 @@ public class CameraFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(CameraViewModel.class);
 
         binding.setViewModel(viewModel);
-
-
-
-//
-//        Person joe = new Person("Joe", "Swedish");
-//        Person joe2 = new Person("Joe", "Dura");
-//        viewModel.insertPerson(joe);
-//
-//        viewModel.getAllPersons().observe(requireActivity(), personList->{
-//            if (personList==null)
-//                return;
-//            Log.d("persons", ": "+personList.size());
-//            Log.d("persons", personList.get(0).firstName);
-//            for (Person lists: personList){
-//                Log.d("persons", lists.firstName+" "+lists.lastName);
-//            }
-//        });
-
-
-
-
-
-
         return binding.getRoot();
     }
 
@@ -137,6 +113,7 @@ public class CameraFragment extends Fragment {
 
         binding.nextBtn.setOnClickListener(v -> {
             String name_s = Objects.requireNonNull(binding.edit1.getText()).toString();
+
 //            String sex_s = Objects.requireNonNull(binding.edit2.getText()).toString();
             String sex_s = "Сука";
             String birthday_s = Objects.requireNonNull(binding.edit3.getText()).toString();

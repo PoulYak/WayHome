@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.os.Handler;
 import android.util.Log;
@@ -23,7 +24,13 @@ import com.example.wayhome.MainActivity;
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentMapBinding;
 import com.example.wayhome.ui.camera.CameraViewModel;
+import com.example.wayhome.ui.profile.MyMy;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Circle;
@@ -60,11 +67,9 @@ import java.util.Random;
 public class MapFragment extends Fragment {
     FragmentMapBinding mBinding;
     MapViewModel viewModel;
-    private final Point TARGET_LOCATION = new Point(59.845933, 30.320045);
-    private final Point TARGET_LOCATION2 = new Point(59.805933, 30.320045);
-    private final Point TARGET_LOCATION3 = new Point(59.815933, 30.320045);
-    private final Point TARGET_LOCATION4 = new Point(59.825933, 30.320045);
-    PlacemarkMapObject mark1;
+    private ArrayList<Point> pointsList = new ArrayList<>();
+    DatabaseReference petRefs;
+    int delay = 0;
 
 
 
@@ -76,9 +81,14 @@ public class MapFragment extends Fragment {
         mBinding =  FragmentMapBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(MapViewModel.class);
         mBinding.setViewModel(viewModel);
-        viewModel.setMapObjects(mBinding.mapview.getMap().getMapObjects().addCollection());
+        petRefs = FirebaseDatabase.getInstance().getReference("Pets");
+
+
+
+
         return mBinding.getRoot();
     }
+
 
 
 
@@ -86,35 +96,31 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mark1= viewModel.getMapObjects().addPlacemark(TARGET_LOCATION);
-        mark1.setOpacity(0.7f);
-        mark1.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.dog1));
+        viewModel.setMapObjects(mBinding.mapview.getMap().getMapObjects().addCollection());
+        petRefs.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    MyMy m = dataSnapshot.getValue(MyMy.class);
+
+                    assert m != null;
+                    viewModel.addPoint(m, tapListener, dragListener, requireContext());
+                }
 
 
-        mBinding.mapview.getMap().addInputListener(inputListener);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
         if (!viewModel.isActive()){
 
             mBinding.mapview.getMap().move(
-                    new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
+                    new CameraPosition(new Point(55.75254900905604, 37.62317657062987), 14.0f, 0.0f, 0.0f),
                     new Animation(Animation.Type.SMOOTH, 5),
                     null);
-            ArrayList<Point> pts = new ArrayList<>();
-            pts.add(TARGET_LOCATION);
-            pts.add(TARGET_LOCATION2);
-            pts.add(TARGET_LOCATION3);
-            pts.add(TARGET_LOCATION4);
-            for (Point p: pts){
-                PlacemarkMapObject mark = viewModel.getMapObjects().addPlacemark(p);
-                mark.setOpacity(0.7f);
-                mark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.dog1));
-                viewModel.setActive(true);
-                mark.setDraggable(true);
-                mark.setDragListener(dragListener);
-                mark.addTapListener(tapListener);
-            }
-
         }
         else{
 //            mBinding.mapview.getMap().move(
@@ -135,89 +141,24 @@ public class MapFragment extends Fragment {
 
 
 
-
-
-
-    }
-    @Override
-    public void onStop() {
-        // Fragment onStop call must be passed to both MapView and MapKit instance.
-        mBinding.mapview.onStop();
-        MapKitFactory.getInstance().onStop();
-        super.onStop();
-    }
-
-    @Override
-    public void onStart() {
-        // Fragment onStart call must be passed to both MapView and MapKit instance.
-        super.onStart();
-        MapKitFactory.getInstance().onStart();
-        mBinding.mapview.onStart();
     }
 
 
 
 
 
-
-//    // Strong reference to the listener.
-//    private MapObjectTapListener circleMapObjectTapListener = (mapObject, point) -> {
-//        if (mapObject instanceof CircleMapObject) {
-//            CircleMapObject circle = (CircleMapObject)mapObject;
-//
-//            float randomRadius = 100.0f + 50.0f * new Random().nextFloat();
-//
-//            Circle curGeometry = circle.getGeometry();
-//            Circle newGeometry = new Circle(curGeometry.getCenter(), randomRadius);
-//            circle.setGeometry(newGeometry);
-//
-//            Object userData = circle.getUserData();
-//            if (userData instanceof CircleMapObjectUserData) {
-//                CircleMapObjectUserData circleUserData = (CircleMapObjectUserData)userData;
-//
-//                Toast toast = Toast.makeText(
-//                        getContext(),
-//                        "Circle with id " + circleUserData.id + " and description '"
-//                                + circleUserData.description + "' tapped",
-//                        Toast.LENGTH_SHORT);
-//                toast.show();
-//            }
+//    InputListener inputListener = new InputListener() {
+//        @Override
+//        public void onMapTap(@NonNull Map map, @NonNull Point point) {
+//            Toast.makeText(requireContext(), point.getLatitude()+" "+point.getLongitude(), Toast.LENGTH_SHORT).show();
 //        }
-//        return true;
+//
+//        @Override
+//        public void onMapLongTap(@NonNull Map map, @NonNull Point point) {
+//            Snackbar.make(mBinding.mapview, "Давай, ещё подольше подержи, может что получится", Toast.LENGTH_SHORT).show();
+//
+//        }
 //    };
-
-//    private class CircleMapObjectUserData {
-//        final int id;
-//        final String description;
-//
-//        CircleMapObjectUserData(int id, String description) {
-//            this.id = id;
-//            this.description = description;
-//        }
-//    }
-
-//    private void createTappableCircle() {
-//        CircleMapObject circle = mapObjects.addCircle(
-//                new Circle(TARGET_LOCATION, 100), Color.GREEN, 2, Color.RED);
-//        circle.setZIndex(100.0f);
-//        circle.setUserData(new CircleMapObjectUserData(42, "Tappable circle"));
-//        circle.addTapListener(circleMapObjectTapListener);
-//    }
-
-
-
-    InputListener inputListener = new InputListener() {
-        @Override
-        public void onMapTap(@NonNull Map map, @NonNull Point point) {
-            Toast.makeText(requireContext(), point.getLatitude()+" "+point.getLongitude(), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onMapLongTap(@NonNull Map map, @NonNull Point point) {
-            Snackbar.make(mBinding.mapview, "Давай, ещё подольше подержи, может что получится", Toast.LENGTH_SHORT).show();
-
-        }
-    };
 
     MapObjectDragListener dragListener = new MapObjectDragListener() {
         @Override
@@ -232,13 +173,28 @@ public class MapFragment extends Fragment {
         }
     };
 
-    MapObjectTapListener tapListener = new MapObjectTapListener() {
-        @Override
-        public boolean onMapObjectTap(@NonNull MapObject mapObject, @NonNull Point point) {
-            Toast.makeText(requireContext(), "Пёсель пропал", Toast.LENGTH_SHORT).show();
-            mapObject.setVisible(false);
-            return false;
+    MapObjectTapListener tapListener = (mapObject, point) -> {
+        if (delay==0){
+            MyMy m = (MyMy)mapObject.getUserData();
+
+//            Toast.makeText(requireContext(), m.getId(), Toast.LENGTH_SHORT).show();
+            Bundle args = new Bundle();
+            args.putString("petId", m.getId());
+            delay = 1000;
+            new Thread(() -> {
+                try {
+                    Thread.sleep(delay);
+                    delay = 0;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+            Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_cardFragment, args);
         }
+
+
+
+        return false;
     };
 
 
