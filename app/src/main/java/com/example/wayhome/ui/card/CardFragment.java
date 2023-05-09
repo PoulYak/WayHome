@@ -2,6 +2,8 @@ package com.example.wayhome.ui.card;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
@@ -39,6 +44,10 @@ import com.yandex.mapkit.map.InputListener;
 import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.runtime.image.ImageProvider;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 public class CardFragment extends Fragment {
     FragmentCardBinding binding;
@@ -64,9 +73,10 @@ public class CardFragment extends Fragment {
         binding.mapview.getMap().setTiltGesturesEnabled(false);
         assert getArguments() != null;
         String petId = getArguments().getString("petId");
+
         setUpViews(petId);
 
-
+// Создайте ссылку на конкретное изображение в Firebase Storage
 
 
 
@@ -134,9 +144,10 @@ public class CardFragment extends Fragment {
 
 
 
-
+                    Toast.makeText(requireContext(), m.getImage_path(), Toast.LENGTH_SHORT).show();
 
                     setUpMap(m.getLongitude(), m.getLatitude());
+                    setUpPhoto(m.getImage_path());
                 } else {
                     // Object with the specified ID does not exist
                 }
@@ -159,4 +170,40 @@ public class CardFragment extends Fragment {
         mark1.setOpacity(1.0f);
         mark1.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.dog1));
     }
+
+    private void setUpPhoto(String path){
+        if (Objects.equals(path, ""))
+            return;
+        StorageReference imageRef = FirebaseStorage.getInstance().getReference(path);
+
+// Create a temporary file to save the downloaded image
+        File localFile = null;
+        try {
+            localFile = File.createTempFile("image", "jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (localFile != null) {
+            // Download the file to the local device
+            File finalLocalFile = localFile;
+            imageRef.getFile(localFile)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        Toast.makeText(requireContext(), "Скачали", Toast.LENGTH_SHORT).show();
+                        // File successfully downloaded
+                        // Perform desired operations with the downloaded file
+                        // For example, you can use the local file path directly
+                        Picasso.get()
+                                .load(finalLocalFile)
+                                .into(binding.dogPhoto);
+                    })
+                    .addOnFailureListener(exception -> {
+                        // An error occurred while downloading the file
+                        // Handle the error
+                    });
+        }
+
+    }
+
+
 }
