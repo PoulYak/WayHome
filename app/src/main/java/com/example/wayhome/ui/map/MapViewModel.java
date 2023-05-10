@@ -2,12 +2,10 @@ package com.example.wayhome.ui.map;
 
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.wayhome.R;
-import com.example.wayhome.ui.profile.MyMy;
+import com.example.wayhome.data.room.MyMy;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.MapObjectCollection;
 import com.yandex.mapkit.map.MapObjectDragListener;

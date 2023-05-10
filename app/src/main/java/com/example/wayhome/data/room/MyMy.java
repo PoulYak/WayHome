@@ -1,6 +1,58 @@
-package com.example.wayhome.ui.profile;
+package com.example.wayhome.data.room;
+
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "pets")
 public class MyMy {
+    @PrimaryKey(autoGenerate = true)
+    private int roomId;
+
+    @ColumnInfo(name = "id")
     private String id;
+    @ColumnInfo(name = "postImage")
+    private int postImage;
+    @ColumnInfo(name = "nickname")
+    private String nickname = "-";
+    @ColumnInfo(name = "status")
+    private String status = "Потерян";
+    @ColumnInfo(name = "breed")
+    private String breed = "Йорк";
+    @ColumnInfo(name = "sex")
+    private String sex = "-";
+    @ColumnInfo(name = "birthday")
+    private String birthday = "-";
+    @ColumnInfo(name = "color")
+    private String color = "-";
+    @ColumnInfo(name = "chip_number")
+    private String chip_number = "-";
+    @ColumnInfo(name = "stigma_number")
+    private String stigma_number = "-";
+    @ColumnInfo(name = "phone_number")
+    private String phone_number = "-";
+    @ColumnInfo(name = "comment")
+    private String comment = "-";
+    @ColumnInfo(name = "features")
+    private String features = "-";
+    @ColumnInfo(name = "latitude")
+    private double latitude = 0;
+    @ColumnInfo(name = "longitude")
+    private double longitude = 0;
+    @ColumnInfo(name = "collar")
+    private String collar = "";
+    @ColumnInfo(name = "image_path")
+    private String image_path = "";
+    @ColumnInfo(name = "placeComment")
+    private String placeComment = "";
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
 
     public String getId() {
         return id;
@@ -9,24 +61,6 @@ public class MyMy {
     public void setId(String id) {
         this.id = id;
     }
-
-    private int postImage;                    //+
-    private String nickname = "-";            //+
-    private String status = "Потерян";        //+
-    private String breed = "Йорк";            //+
-    private String sex = "-";                 //+
-    private String birthday = "-";            //+
-    private String color = "-";               //+
-    private String chip_number = "-";         //+
-    private String stigma_number = "-";       //+
-    private String phone_number = "-";        //+
-    private String comment = "-";             //+
-    private String features = "-";            //+
-    private double latitude = 0;              //+
-    private double longitude = 0;             //+
-    private String collar = "";               //+
-    private String image_path = "";           //+
-    private String placeComment = "";           //+
 
     public String getPlaceComment() {
         return placeComment;

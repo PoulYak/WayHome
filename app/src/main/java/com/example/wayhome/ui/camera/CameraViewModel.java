@@ -1,28 +1,21 @@
 package com.example.wayhome.ui.camera;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.app.Activity;
 import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.wayhome.data.room.AppDatabase;
-import com.example.wayhome.data.room.Pet;
-import com.example.wayhome.data.room.PetRepository;
-import com.example.wayhome.data.room.User;
-import com.example.wayhome.ui.profile.MyMy;
+import com.example.wayhome.data.room.MyMyRepository;
+import com.example.wayhome.data.room.MyMy;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,8 +31,8 @@ public class CameraViewModel extends AndroidViewModel {
     private MutableLiveData<String> mText = new MutableLiveData<>();
     ArrayList<Uri> imageUries = new ArrayList<>();
     private ArrayList<Photo> arrayList = new ArrayList<>();
-    private final PetRepository petRepository;
-    private final MutableLiveData<List<Pet>> petsLiveData;
+    private final MyMyRepository petRepository;
+    private final MutableLiveData<List<MyMy>> petsLiveData;
     DatabaseReference petsRef;
     public StorageReference storageRef;
     private double longitude = 0.0f;
@@ -102,7 +95,7 @@ public class CameraViewModel extends AndroidViewModel {
     public CameraViewModel(@NonNull Application application) {
         super(application);
         AppDatabase appDatabase = AppDatabase.getInstance(application);
-        this.petRepository = new PetRepository(appDatabase);
+        this.petRepository = new MyMyRepository(appDatabase);
         this.petsLiveData = new MutableLiveData<>();
 
         petsRef = FirebaseDatabase.getInstance().getReference("Pets");
@@ -134,9 +127,9 @@ public class CameraViewModel extends AndroidViewModel {
         petsRef.child(pet.getId()).setValue(pet);
     }
 
-    public LiveData<List<Pet>> getPetsByOwnerId(int ownerId) {
+    public LiveData<List<MyMy>> getPetsByOwnerId(String phone_number) {
         new Thread(() -> {
-            List<Pet> pets = petRepository.getPetsByOwnerId(ownerId);
+            List<MyMy> pets = petRepository.getPetsByOwnerId(phone_number);
             petsLiveData.postValue(pets);
         }).start();
 

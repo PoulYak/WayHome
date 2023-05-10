@@ -1,28 +1,20 @@
 package com.example.wayhome.ui.card;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.example.wayhome.R;
-import com.example.wayhome.data.room.User;
 import com.example.wayhome.databinding.FragmentCardBinding;
-import com.example.wayhome.ui.profile.MyMy;
+import com.example.wayhome.data.room.MyMy;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,14 +26,7 @@ import com.squareup.picasso.Picasso;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
-import com.yandex.mapkit.layers.GeoObjectTapEvent;
-import com.yandex.mapkit.layers.GeoObjectTapListener;
-import com.yandex.mapkit.map.CameraListener;
 import com.yandex.mapkit.map.CameraPosition;
-import com.yandex.mapkit.map.CameraUpdateReason;
-import com.yandex.mapkit.map.InertiaMoveListener;
-import com.yandex.mapkit.map.InputListener;
-import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.runtime.image.ImageProvider;
 

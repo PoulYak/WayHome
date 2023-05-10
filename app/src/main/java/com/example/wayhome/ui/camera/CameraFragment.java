@@ -3,41 +3,26 @@ package com.example.wayhome.ui.camera;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.wayhome.R;
-import com.example.wayhome.data.room.AppDatabase;
-import com.example.wayhome.data.room.Pet;
 import com.example.wayhome.databinding.FragmentCameraBinding;
-import com.example.wayhome.ui.camera.getlocation.GetLocationFragment;
-import com.example.wayhome.ui.profile.MyMy;
-import com.example.wayhome.ui.profile.RecyclerAdapter;
+import com.example.wayhome.data.room.MyMy;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.storage.StorageReference;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.map.CameraListener;
 import com.yandex.mapkit.map.CameraPosition;
@@ -45,7 +30,6 @@ import com.yandex.mapkit.map.CameraUpdateReason;
 import com.yandex.mapkit.map.Map;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class CameraFragment extends Fragment {
@@ -55,9 +39,6 @@ public class CameraFragment extends Fragment {
     FragmentCameraBinding binding;
     ActivityResultLauncher<Uri> takePictureLauncher;
     CameraViewModel viewModel;
-
-
-
 
 
 

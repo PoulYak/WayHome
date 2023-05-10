@@ -1,8 +1,5 @@
 package com.example.wayhome.ui.map;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,21 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wayhome.MainActivity;
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentMapBinding;
-import com.example.wayhome.ui.camera.CameraViewModel;
-import com.example.wayhome.ui.profile.MyMy;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.wayhome.data.room.MyMy;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,35 +23,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
-import com.yandex.mapkit.geometry.Circle;
-import com.yandex.mapkit.geometry.LinearRing;
 import com.yandex.mapkit.geometry.Point;
-import com.yandex.mapkit.geometry.Polygon;
-import com.yandex.mapkit.geometry.Polyline;
-import com.yandex.mapkit.layers.GeoObjectTapEvent;
-import com.yandex.mapkit.layers.GeoObjectTapListener;
-import com.yandex.mapkit.map.CameraListener;
 import com.yandex.mapkit.map.CameraPosition;
-import com.yandex.mapkit.map.CameraUpdateReason;
-import com.yandex.mapkit.map.CircleMapObject;
-import com.yandex.mapkit.map.IconStyle;
-import com.yandex.mapkit.map.InputListener;
-import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.map.MapObject;
-import com.yandex.mapkit.map.MapObjectCollection;
 import com.yandex.mapkit.map.MapObjectDragListener;
 import com.yandex.mapkit.map.MapObjectTapListener;
-import com.yandex.mapkit.map.PlacemarkMapObject;
-import com.yandex.mapkit.map.PolygonMapObject;
-import com.yandex.mapkit.map.PolylineMapObject;
-import com.yandex.mapkit.mapview.MapView;
-import com.yandex.runtime.image.AnimatedImageProvider;
-import com.yandex.runtime.image.ImageProvider;
-import com.yandex.runtime.ui_view.ViewProvider;
 
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Random;
 
 
 public class MapFragment extends Fragment {

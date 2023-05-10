@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -14,11 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.wayhome.R;
 import com.example.wayhome.data.room.AppDatabase;
-import com.example.wayhome.data.room.Pet;
 import com.example.wayhome.databinding.FragmentHomeBinding;
-import com.example.wayhome.ui.profile.MyMy;
+import com.example.wayhome.data.room.MyMy;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
