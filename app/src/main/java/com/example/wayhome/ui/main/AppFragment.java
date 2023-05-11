@@ -83,18 +83,18 @@ public class AppFragment extends Fragment {
     }
 
     private void insertData() {
-        String phone = mAuth.getCurrentUser().getPhoneNumber();
-        usersRef.child(phone).addListenerForSingleValueEvent(new ValueEventListener() {
+        String uid = mAuth.getCurrentUser().getUid();
+        usersRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                 } else {
-                    // Object with the specified ID does not exist
                     String name = "";
-                    String email = "";
+                    String email = mAuth.getCurrentUser().getEmail();
+                    String phone = "";
 
                     Person u = new Person(name, email, phone, 0);
-                    usersRef.child(phone).setValue(u);
+                    usersRef.child(uid).setValue(u);
 
                 }
             }
@@ -104,8 +104,6 @@ public class AppFragment extends Fragment {
                 // Handle the error
             }
         });
-
-//        usersRef.push().setValue(u);
     }
 
 
@@ -118,15 +116,6 @@ public class AppFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
-
-
-
-
-
-
-
-
         NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.fragmentContainerView);
 
         if (navHostFragment != null) {
@@ -136,31 +125,28 @@ public class AppFragment extends Fragment {
                     new AppBarConfiguration.Builder(navController.getGraph()).build();
             Toolbar toolbar = view.findViewById(R.id.toolbar);
             toolbar.inflateMenu(R.menu.toolbar_menu);
-            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()){
+            toolbar.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()){
 //                        case (R.id.tool_notifications):
 ////                            Navigation.findNavController(getView()).navigate(R.id.to);
 //                            Toast.makeText(getActivity(), getText(R.string.tool_notification_text), Toast.LENGTH_SHORT).show();
 //                            break;
-                        case (R.id.tool_share):
-                            Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_shareFragment);
-                            break;
-                        case (R.id.tool_feedback):
-                            Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_feedBackFragment);
-                            break;
-                        case (R.id.tool_settings):
-                            Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_settingsFragment);
-                            break;
-                        case (R.id.tool_logout):
-                            mAuth.signOut();
-                            Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_mainFragment);
+                    case (R.id.tool_share):
+                        Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_shareFragment);
+                        break;
+                    case (R.id.tool_feedback):
+                        Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_feedBackFragment);
+                        break;
+                    case (R.id.tool_settings):
+                        Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_settingsFragment);
+                        break;
+                    case (R.id.tool_logout):
+                        mAuth.signOut();
+                        Navigation.findNavController(requireView()).navigate(R.id.action_appFragment_to_mainFragment);
 
-                            break;
-                    }
-                    return false;
+                        break;
                 }
+                return false;
             });
 
 

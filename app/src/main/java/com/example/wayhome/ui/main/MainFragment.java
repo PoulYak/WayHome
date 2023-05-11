@@ -40,13 +40,12 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (currentUser!=null){
-            Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
             Navigation.findNavController(requireView()).navigate(R.id.action_mainFragment_to_appFragment);
         }
         mViewModel.setText("Hello, world!");
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.loginButton.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_authenticationStep1Fragment);
+            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_authenticationStep2Fragment2);
         });
         mBinding.signupButton.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_authenticationStep1Fragment);

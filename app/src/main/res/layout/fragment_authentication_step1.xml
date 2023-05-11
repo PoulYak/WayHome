@@ -24,10 +24,11 @@ tools:context=".ui.authentication.AuthenticationStep1Fragment">
         android:layout_marginTop="56dp"
         style="@style/My.Headline5"
         android:gravity="center"
-        android:text="@string/layout_1_2_enter_number_text"
+        android:text="Регистрация"
         />
 
     <TextView
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -41,17 +42,30 @@ tools:context=".ui.authentication.AuthenticationStep1Fragment">
         android:layout_width="match_parent"
         android:layout_marginTop="28dp"
         android:layout_height="wrap_content"
-        android:hint="@string/phone_hint_text"
+        android:hint="Почта"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input"
-            android:text="+7 ("
+            android:id="@+id/mail_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextField2"
+        android:layout_width="match_parent"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:hint="Пароль"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -84,7 +98,7 @@ tools:context=".ui.authentication.AuthenticationStep1Fragment">
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="@string/layout_1_2_next_button_text" />
+        android:text="Зарегистрироваться" />
 
 
 </LinearLayout>

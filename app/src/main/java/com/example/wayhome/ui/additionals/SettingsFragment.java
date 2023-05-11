@@ -48,8 +48,8 @@ public class SettingsFragment extends Fragment {
 
         return binding.getRoot();
     }
-    private void setUpViews(String phone_number){
-        usersRef.child(phone_number).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void setUpViews(String uid){
+        usersRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -84,9 +84,9 @@ public class SettingsFragment extends Fragment {
                     toolbar.getMenu().clear();
                     haveMenu= false;
                     person.setIs_toggle(binding.materialSwitch.isChecked()?1:0);
-                    person.setEmail(binding.edit3.getText().toString());
+                    person.setPhone(binding.edit2.getText().toString());
                     person.setName(binding.edit1.getText().toString());
-                    usersRef.child(person.getPhone()).setValue(person);
+                    usersRef.child(mAuth.getCurrentUser().getUid()).setValue(person);
 
                     break;
             }
@@ -102,15 +102,15 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setUpViews(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber());
+        setUpViews(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
         setUpMenu(view);
 
         binding.materialSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             activateCheck();
         });
-        binding.edit2.setEnabled(false);
+        binding.edit3.setEnabled(false);
         binding.edit1.addTextChangedListener(tw);
-        binding.edit3.addTextChangedListener(tw);
+        binding.edit2.addTextChangedListener(tw);
 
 
     }
@@ -118,7 +118,7 @@ public class SettingsFragment extends Fragment {
 
 
     public void activateCheck(){
-        if (!person.getEmail().equals(binding.edit3.getText().toString()) || !person.getName().equals(binding.edit1.getText().toString()) || person.getIs_toggle()!=(binding.materialSwitch.isChecked()?1:0)) {
+        if (!person.getPhone().equals(binding.edit2.getText().toString()) || !person.getName().equals(binding.edit1.getText().toString()) || person.getIs_toggle()!=(binding.materialSwitch.isChecked()?1:0)) {
             if (!haveMenu){
                 toolbar.inflateMenu(R.menu.temp_menu);
                 haveMenu=true;
@@ -150,15 +150,3 @@ public class SettingsFragment extends Fragment {
 
 
 }
-
-//
-//    NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.fragmentContainerView);
-//
-//        if (navHostFragment != null) {
-//                NavController navController = navHostFragment.getNavController();
-//                BottomNavigationView navigationBar = binding.bottomNav;
-//                AppBarConfiguration appBarConfiguration =
-//                new AppBarConfiguration.Builder(navController.getGraph()).build();
-//                Toolbar toolbar = view.findViewById(R.id.toolbar);
-//                toolbar.inflateMenu(R.menu.toolbar_menu);
-//

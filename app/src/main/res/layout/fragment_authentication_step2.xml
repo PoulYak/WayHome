@@ -23,10 +23,11 @@
             android:layout_marginTop="56dp"
             style="@style/My.Headline5"
             android:gravity="center"
-            android:text="@string/layout_1_3_enter_code_text"
+            android:text="Вход"
             />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/numberView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,16 +40,30 @@
             android:layout_width="match_parent"
             android:layout_marginTop="28dp"
             android:layout_height="wrap_content"
-            android:hint="Код"
+            android:hint="Почта"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/code_input"
+                android:id="@+id/mail_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField2"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_height="wrap_content"
+            android:hint="Пароль"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
 

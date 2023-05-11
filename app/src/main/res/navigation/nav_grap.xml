@@ -13,13 +13,10 @@
             android:id="@+id/action_mainFragment_to_authenticationStep1Fragment"
             app:destination="@id/authenticationStep1Fragment" />
         <action
+            android:id="@+id/action_mainFragment_to_authenticationStep2Fragment2"
+            app:destination="@id/authenticationStep2Fragment2" />
+        <action
             android:id="@+id/action_mainFragment_to_appFragment"
-            app:destination="@id/appFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_shareFragment"
-            app:destination="@id/shareFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_appFragment2"
             app:destination="@id/appFragment" />
     </fragment>
     <fragment
@@ -28,21 +25,14 @@
         android:label="fragment_authentication_step1"
         tools:layout="@layout/fragment_authentication_step1" >
         <action
-            android:id="@+id/action_authenticationStep1Fragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <action
-            android:id="@+id/action_authenticationStep1Fragment_to_authenticationStep2Fragment2"
-            app:destination="@id/authenticationStep2Fragment2">
-        </action>
+            android:id="@+id/action_authenticationStep1Fragment_to_appFragment"
+            app:destination="@id/appFragment" />
     </fragment>
     <fragment
         android:id="@+id/authenticationStep2Fragment2"
         android:name="com.example.wayhome.ui.authentication.AuthenticationStep2Fragment"
         android:label="fragment_authentication_step2"
         tools:layout="@layout/fragment_authentication_step2" >
-        <action
-            android:id="@+id/action_authenticationStep2Fragment2_to_authenticationStep1Fragment"
-            app:destination="@id/authenticationStep1Fragment" />
         <action
             android:id="@+id/action_authenticationStep2Fragment2_to_appFragment"
             app:destination="@id/appFragment" />
