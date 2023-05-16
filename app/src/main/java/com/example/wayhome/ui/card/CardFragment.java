@@ -1,20 +1,27 @@
 package com.example.wayhome.ui.card;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentCardBinding;
 import com.example.wayhome.data.room.MyMy;
+import com.example.wayhome.ui.home.HomeViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,8 +52,6 @@ public class CardFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding =  FragmentCardBinding.inflate(inflater, container, false);
         petsRef = FirebaseDatabase.getInstance().getReference("Pets");
-
-
         return binding.getRoot();
     }
     @Override
@@ -56,42 +61,19 @@ public class CardFragment extends Fragment {
         binding.mapview.getMap().setScrollGesturesEnabled(false);
         binding.mapview.getMap().setRotateGesturesEnabled(false);
         binding.mapview.getMap().setTiltGesturesEnabled(false);
-        assert getArguments() != null;
         String petId = getArguments().getString("petId");
-
         setUpViews(petId);
 
-// Создайте ссылку на конкретное изображение в Firebase Storage
 
 
-
-
-//        binding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                binding.mapview.setVisibility(View.VISIBLE);
-//            }
-//        });
-
-
-
-
-        binding.layoutShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT,"Пропал султан"); //todo text for sharing
-                sendIntent.setType("text/plain");
-//                sendIntent.setType("")
-                Intent.createChooser(sendIntent,"Share via");
-                startActivity(sendIntent);
-            }
+        binding.layoutShare.setOnClickListener(v -> {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT,"Пропал султан"); //todo text for sharing
+            sendIntent.setType("text/plain");
+            Intent.createChooser(sendIntent,"Share via");
+            startActivity(sendIntent);
         });
-
-
-
-
         }
 
     @Override
@@ -115,9 +97,6 @@ public class CardFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     MyMy m = dataSnapshot.getValue(MyMy.class);
-
-
-
                     binding.tvNickname.setText(m.getNickname());
                     binding.tvBreed.setText(m.getBreed());
                     binding.tvCommentVal.setText(m.getComment());
@@ -137,7 +116,6 @@ public class CardFragment extends Fragment {
                         binding.tvStatus.setTextColor(getResources().getColor(R.color.red));
                     else
                         binding.tvStatus.setTextColor(getResources().getColor(R.color.green));
-                    Toast.makeText(requireContext(), m.getImage_path(), Toast.LENGTH_SHORT).show();
 
                     setUpMap(m.getLongitude(), m.getLatitude());
                     setUpPhoto(m.getImage_path());
@@ -168,34 +146,13 @@ public class CardFragment extends Fragment {
         if (Objects.equals(path, ""))
             return;
         StorageReference imageRef = FirebaseStorage.getInstance().getReference(path);
+        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
 
-// Create a temporary file to save the downloaded image
-        File localFile = null;
-        try {
-            localFile = File.createTempFile("image", "jpg");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (localFile != null) {
-            // Download the file to the local device
-            File finalLocalFile = localFile;
-            imageRef.getFile(localFile)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        Toast.makeText(requireContext(), "Скачали", Toast.LENGTH_SHORT).show();
-                        // File successfully downloaded
-                        // Perform desired operations with the downloaded file
-                        // For example, you can use the local file path directly
-                        Picasso.get()
-                                .load(finalLocalFile)
-                                .into(binding.dogPhoto);
-                    })
-                    .addOnFailureListener(exception -> {
-                        // An error occurred while downloading the file
-                        // Handle the error
-                    });
-        }
-
+                Glide.with(requireContext()).load(uri.toString()).into(binding.dogPhoto);
+            }
+        });
     }
 
 

@@ -125,13 +125,13 @@ public class CameraFragment extends Fragment {
                 m.setSex(sex_s);
                 m.setLatitude(viewModel.getLatitude());
                 m.setLongitude(viewModel.getLongitude());
-                String chip_s = (!binding.edit6.getText().toString().equals("")?binding.edit6.getText().toString():"-");
+                String chip_s = (!Objects.requireNonNull(binding.edit6.getText()).toString().equals("")?binding.edit6.getText().toString():"-");
                 m.setChip_number(chip_s);
-                m.setPlaceComment(binding.edit10.getText().toString());
-                String stigma_s = (!binding.edit14.getText().toString().equals("")?binding.edit14.getText().toString():"-");
-                m.setPhone_number(binding.edit13.getText().toString());
-                m.setComment(binding.edit7.getText().toString());
-                m.setFeatures(binding.edit8.getText().toString());
+                m.setPlaceComment(Objects.requireNonNull(binding.edit10.getText()).toString());
+                String stigma_s = (!Objects.requireNonNull(binding.edit14.getText()).toString().equals("")?binding.edit14.getText().toString():"-");
+                m.setPhone_number(Objects.requireNonNull(binding.edit13.getText()).toString());
+                m.setComment(Objects.requireNonNull(binding.edit7.getText()).toString());
+                m.setFeatures(Objects.requireNonNull(binding.edit8.getText()).toString());
                 m.setStigma_number(stigma_s);
 
 //            Toast.makeText(requireContext(), String.valueOf(binding.edit0.getCheckedButtonId()), Toast.LENGTH_SHORT).show();
@@ -250,6 +250,7 @@ public class CameraFragment extends Fragment {
         binding.edit7.setText("");
         binding.edit8.setText("");
         binding.edit10.setText("");
+
     }
 
 
