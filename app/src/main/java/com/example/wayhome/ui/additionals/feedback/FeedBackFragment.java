@@ -21,8 +21,7 @@ import android.view.ViewGroup;
 
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentFeedBackBinding;
-import com.example.wayhome.ui.Support;
-import com.example.wayhome.ui.home.HomeViewModel;
+import com.example.wayhome.data.room.Support;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;

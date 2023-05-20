@@ -21,6 +21,7 @@ import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentCardBinding;
 import com.example.wayhome.data.room.MyMy;
 import com.example.wayhome.ui.home.HomeViewModel;
+import com.example.wayhome.ui.utils.Address;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -108,7 +109,7 @@ public class CardFragment extends Fragment {
                     binding.tvOllar.setText(m.getCollar());
                     binding.tvPhoneNumber.setText("Звонить "+m.getPhone_number());
                     binding.tvDate.setText(m.getBirthday());
-                    binding.tvPlaceVal.setText(m.getPlaceComment());
+                    binding.tvPlaceVal.setText(Address.getAddress(requireContext(), m.getLatitude(), m.getLongitude()));
                     if (m.getSex().equals("Девочка"))
                         binding.ivSex.setImageDrawable(getResources().getDrawable(R.drawable.female));
                     binding.tvStatus.setText(m.getStatus());

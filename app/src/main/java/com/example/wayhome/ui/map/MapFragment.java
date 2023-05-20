@@ -1,5 +1,8 @@
 package com.example.wayhome.ui.map;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.yandex.mapkit.Animation;
+import com.yandex.mapkit.MapKit;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
@@ -30,6 +35,7 @@ import com.yandex.mapkit.map.MapObjectCollection;
 import com.yandex.mapkit.map.MapObjectDragListener;
 import com.yandex.mapkit.map.MapObjectTapListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -43,12 +49,14 @@ import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.runtime.image.ImageProvider;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MapFragment extends Fragment{
     FragmentMapBinding binding;
     private MapViewModel viewModel;
     DatabaseReference petRefs;
     MapObjectCollection mapObjects;
+    static String TAG ="LOCATION";
 
     int delay = 0;
 
@@ -149,6 +157,7 @@ public class MapFragment extends Fragment{
     MapObjectTapListener tapListener = (mapObject, point) -> {
         if (delay==0){
             MyMy m = (MyMy)mapObject.getUserData();
+
             Bundle args = new Bundle();
             args.putString("petId", m.getId());
             delay = 1000;
@@ -167,5 +176,7 @@ public class MapFragment extends Fragment{
 
         return false;
     };
+
+
 }
 

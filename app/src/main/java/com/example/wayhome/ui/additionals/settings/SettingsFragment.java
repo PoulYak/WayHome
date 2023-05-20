@@ -20,8 +20,7 @@ import android.view.ViewGroup;
 
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentSettingsBinding;
-import com.example.wayhome.ui.Person;
-import com.example.wayhome.ui.additionals.feedback.FeedbackViewModel;
+import com.example.wayhome.data.room.Person;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

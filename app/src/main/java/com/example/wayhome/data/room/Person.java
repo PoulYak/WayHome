@@ -1,4 +1,4 @@
-package com.example.wayhome.ui;
+package com.example.wayhome.data.room;
 
 
 public class Person {

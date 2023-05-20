@@ -1,5 +1,6 @@
 package com.example.wayhome;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
         MapKitFactory.setApiKey(MAPKIT_API_KEY);
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
+        // Java
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     }
 }

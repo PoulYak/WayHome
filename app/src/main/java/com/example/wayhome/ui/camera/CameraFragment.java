@@ -135,7 +135,7 @@ public class CameraFragment extends Fragment {
                 m.setComment(Objects.requireNonNull(binding.edit7.getText()).toString());
                 m.setFeatures(Objects.requireNonNull(binding.edit8.getText()).toString());
                 m.setStigma_number(stigma_s);
-                m.setOwner_mail(mAuth.getCurrentUser().getEmail());
+                m.setOwner_mail(mAuth.getCurrentUser().getUid());
 
 //            Toast.makeText(requireContext(), String.valueOf(binding.edit0.getCheckedButtonId()), Toast.LENGTH_SHORT).show();
 

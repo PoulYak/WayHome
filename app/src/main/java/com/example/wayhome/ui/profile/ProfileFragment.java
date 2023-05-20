@@ -58,9 +58,13 @@ public class ProfileFragment extends Fragment {
 
 
     private void subscribeToHomeItemList() {
-        viewModel.getMyItemList(mAuth.getCurrentUser().getEmail()).observe(getViewLifecycleOwner(), new Observer<List<MyMy>>() {
+        viewModel.getMyItemList(mAuth.getCurrentUser().getUid()).observe(getViewLifecycleOwner(), new Observer<List<MyMy>>() {
             @Override
             public void onChanged(List<MyMy> homeItems) {
+                if (homeItems.size()>0)
+                    binding.noLost.setVisibility(View.INVISIBLE);
+                else
+                    binding.noLost.setVisibility(View.VISIBLE);
                 recyclerAdapter.setData((ArrayList<MyMy>) homeItems);
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(() -> recyclerAdapter.notifyDataSetChanged());

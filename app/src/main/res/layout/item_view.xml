@@ -28,32 +28,57 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/My.Subtitle1"
-            android:text="Анатолий Дьяченко: 8-800-555-35-35"
+            android:text="Анатолий"
             app:layout_constraintTop_toBottomOf="@+id/ivPost"
             android:padding="10dp"
             app:layout_constraintStart_toStartOf="parent"/>
+        <TextView
+            android:id="@+id/tvStatusOfPet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/My.Body2"
+            android:text="потерян"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+            app:layout_constraintLeft_toRightOf="@+id/tvTitle"
+            />
+        <TextView
+            style="@style/My.Subtitle1"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/tvPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8-800-555-35-35"
+            />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ivBookmark"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
             <ImageView
                 android:id="@+id/ivComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/location"
                 android:padding="10dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:src="@drawable/location"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_width="0dp"
                 android:id="@+id/tvPlaceSaw"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="Москва, Тропарёво-Никулино, 300м от вас"
-                app:layout_constraintStart_toEndOf="@id/ivComment"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivComment"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

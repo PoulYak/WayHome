@@ -19,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.wayhome.R;
 import com.example.wayhome.data.room.MyMy;
+import com.example.wayhome.ui.utils.Address;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -75,8 +76,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             }
         });
 
-        holder.message.setText(post.getStatus());
+        holder.status.setText(post.getStatus());
+        if (post.getStatus().equals("Потерян"))
+            holder.status.setTextColor(context.getColor(R.color.red));
+        else
+            holder.status.setTextColor(context.getColor(R.color.green));
+
+        String address = Address.getAddress(context, post.getLatitude(), post.getLongitude());
+        int limit = 30;
+        if (address.length()>limit)
+            address = address.substring(0, limit)+"...";
+        holder.address.setText(address);
         holder.title.setText(post.getNickname());
+
+        holder.phoneNumber.setText(post.getPhone_number());
+        holder.timeLost.setText(post.getBirthday());
         holder.itemView.setOnClickListener(v -> {
             Bundle args = new Bundle();
             args.putString("petId", post.getId());
@@ -96,14 +110,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView postImage;
         TextView title;
-        TextView message;
+        TextView address;
+        TextView timeLost;
+        TextView status;
+        TextView phoneNumber;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             postImage = itemView.findViewById(R.id.ivPost);
             title = itemView.findViewById(R.id.tvTitle);
-            message = itemView.findViewById(R.id.tvPlaceSaw);
+            status = itemView.findViewById(R.id.tvStatusOfPet);
+            timeLost = itemView.findViewById(R.id.ivBookmark);
+            phoneNumber = itemView.findViewById(R.id.tvPhone);
+            address = itemView.findViewById(R.id.tvPlaceSaw);
+
         }
 
     }
