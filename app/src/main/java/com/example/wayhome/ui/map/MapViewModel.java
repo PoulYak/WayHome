@@ -1,58 +1,51 @@
 package com.example.wayhome.ui.map;
 
-import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.wayhome.R;
 import com.example.wayhome.data.room.MyMy;
 import com.yandex.mapkit.geometry.Point;
-import com.yandex.mapkit.map.MapObjectCollection;
-import com.yandex.mapkit.map.MapObjectDragListener;
-import com.yandex.mapkit.map.MapObjectTapListener;
-import com.yandex.mapkit.map.PlacemarkMapObject;
-import com.yandex.mapkit.mapview.MapView;
-import com.yandex.runtime.image.ImageProvider;
+import com.yandex.mapkit.map.CameraPosition;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 public class MapViewModel extends ViewModel {
-    private boolean isActive = false;
-    private MapObjectCollection mapObjects;
-    private MapView mapView;
+    private MutableLiveData<List<MyMy>> locationDataList;
+    private MutableLiveData<CameraPosition> cameraPosition;
 
-    public void addPoint(MyMy m, MapObjectTapListener tapListener, MapObjectDragListener dragListener, Context context){
-        Point point = new Point(m.getLatitude(), m.getLongitude());
-        PlacemarkMapObject mark = mapObjects.addPlacemark(point);
-        mark.setOpacity(0.7f);
-        mark.setIcon(ImageProvider.fromResource(context, R.drawable.dog1));
-        isActive = true;
-        mark.setDragListener(dragListener);
-        mark.addTapListener(tapListener);
-        mark.setUserData(m);
-
+    public LiveData<List<MyMy>> getLocationDataList() {
+        if (locationDataList == null) {
+            locationDataList = new MutableLiveData<>();
+            loadLocationData();
+        }
+        return locationDataList;
     }
 
-    public MapObjectCollection getMapObjects() {
-        return mapObjects;
+    public LiveData<CameraPosition> getCameraPosition() {
+        if (cameraPosition == null) {
+            cameraPosition = new MutableLiveData<>();
+        }
+        return cameraPosition;
     }
 
-    public void setMapObjects(MapObjectCollection mapObjects) {
-        this.mapObjects = mapObjects;
+    public void setCameraPosition(CameraPosition position) {
+        if (cameraPosition != null) {
+            cameraPosition.setValue(position);
+        }
     }
 
-    public MapView getMapView() {
-        return mapView;
+    private void loadLocationData() {
+        List<MyMy> data = new ArrayList<>();
+        locationDataList.setValue(data);
     }
-
-    public void setMapView(MapView mapView) {
-        this.mapView = mapView;
+    public void updateLocationData(List<MyMy> data) {
+        locationDataList.setValue(data);
     }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
 }
