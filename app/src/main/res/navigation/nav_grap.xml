@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/authenticationStep1Fragment"
-        android:name="com.example.wayhome.ui.authentication.AuthenticationStep1Fragment"
+        android:name="com.example.wayhome.ui.authentication.signup.AuthenticationStep1Fragment"
         android:label="fragment_authentication_step1"
         tools:layout="@layout/fragment_authentication_step1" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/authenticationStep2Fragment2"
-        android:name="com.example.wayhome.ui.authentication.AuthenticationStep2Fragment"
+        android:name="com.example.wayhome.ui.authentication.login.AuthenticationStep2Fragment"
         android:label="fragment_authentication_step2"
         tools:layout="@layout/fragment_authentication_step2" >
         <action

@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 public class SettingsFragment extends Fragment {
+    //todo FIX THIS SHIT
     FragmentSettingsBinding binding;
     Toolbar toolbar;
     FirebaseAuth mAuth;

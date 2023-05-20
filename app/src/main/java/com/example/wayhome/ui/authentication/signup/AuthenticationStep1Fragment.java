@@ -1,66 +1,61 @@
-package com.example.wayhome.ui.authentication;
+package com.example.wayhome.ui.authentication.signup;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentAuthenticationStep1Binding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.wayhome.ui.additionals.feedback.FeedbackViewModel;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
-
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import ru.tinkoff.decoro.MaskImpl;
-import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
-import ru.tinkoff.decoro.slots.Slot;
-import ru.tinkoff.decoro.watchers.FormatWatcher;
-import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
-
 
 public class AuthenticationStep1Fragment extends Fragment {
-    FragmentAuthenticationStep1Binding mBinding;
-
+    FragmentAuthenticationStep1Binding binding;
+    SignupViewModel viewModel;
 
     private FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-                mBinding = FragmentAuthenticationStep1Binding.inflate(inflater, container, false);
-
+                binding = FragmentAuthenticationStep1Binding.inflate(inflater, container, false);
         mAuth = FirebaseAuth.getInstance();
-
-
-
-        return mBinding.getRoot();
+        viewModel = new ViewModelProvider(this).get(SignupViewModel.class);
+        binding.setViewModel(viewModel);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mBinding.nextButton.setOnClickListener(v -> {
+        viewModel.getLoginText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String newData) {
+                binding.mailInput.setText(newData);
+            }
+        });
+        viewModel.getPasswordText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String newData) {
+                binding.passwordInput.setText(newData);
+            }
+        });
 
-            String email = mBinding.mailInput.getText().toString().trim();
-            String password = mBinding.passwordInput.getText().toString().trim();
+
+
+        binding.nextButton.setOnClickListener(v -> {
+
+            String email = binding.mailInput.getText().toString().trim();
+            String password = binding.passwordInput.getText().toString().trim();
             if (email.isEmpty() || password.isEmpty())
                 Snackbar.make(requireView(), "Заполните поля", Snackbar.LENGTH_SHORT).setActionTextColor(getResources().getColor(R.color.red)).show();
             else{
@@ -72,7 +67,7 @@ public class AuthenticationStep1Fragment extends Fragment {
                                 Snackbar.make(requireView(), "Успешная регистрация", Snackbar.LENGTH_SHORT).show();
                                 Navigation.findNavController(requireView()).navigate(R.id.action_authenticationStep1Fragment_to_appFragment);
                             } else {
-                                Snackbar.make(requireView(), "Почта занята", Snackbar.LENGTH_SHORT).setActionTextColor(getResources().getColor(R.color.red)).show();
+                                Snackbar.make(requireView(), "Не получилось зарегистрироваться(", Snackbar.LENGTH_SHORT).setActionTextColor(getResources().getColor(R.color.red)).show();
                             }
                         });
             }

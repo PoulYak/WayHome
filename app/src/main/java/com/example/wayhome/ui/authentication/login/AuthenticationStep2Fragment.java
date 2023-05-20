@@ -1,4 +1,4 @@
-package com.example.wayhome.ui.authentication;
+package com.example.wayhome.ui.authentication.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentAuthenticationStep2Binding;
+import com.example.wayhome.ui.authentication.signup.SignupViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -37,18 +40,32 @@ public class AuthenticationStep2Fragment extends Fragment {
 
     private FragmentAuthenticationStep2Binding binding;
     private FirebaseAuth mAuth;
+    LoginViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAuthenticationStep2Binding.inflate(inflater, container, false);
         mAuth = FirebaseAuth.getInstance();
-
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        binding.setViewModel(viewModel);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        viewModel.getLoginText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String newData) {
+                binding.mailInput.setText(newData);
+            }
+        });
+        viewModel.getPasswordText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String newData) {
+                binding.passwordInput.setText(newData);
+            }
+        });
         binding.buttonConfirm.setOnClickListener(v -> {
             String email = binding.mailInput.getText().toString().trim();
             String password = binding.passwordInput.getText().toString().trim();

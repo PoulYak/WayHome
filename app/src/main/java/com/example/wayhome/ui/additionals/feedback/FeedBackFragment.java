@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -48,12 +49,20 @@ public class FeedBackFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (viewModel.getFeedbackText().getValue()!=null)
-            binding.textInput.setText(viewModel.getFeedbackText().toString());
+
         setUpToolBar();
         setSendButtonClickListener();
         addTgButton();
+        viewModel.getFeedbackText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String newData) {
+                binding.textInput.setText(newData);
+            }
+        });
 
+    }
+    private void updateData(String newData) {
+        viewModel.setFeedbackText(newData);
     }
 
     private void setSendButtonClickListener() {
@@ -67,6 +76,7 @@ public class FeedBackFragment extends Fragment {
                 s.setMessage(binding.textInput.getText().toString());
                 supportRef.push().setValue(s);
                 binding.textInput.setText("");
+                updateData("");
                 Snackbar.make(requireView(), "Ваше сообщение успешно отправлено в поддержку", Snackbar.LENGTH_SHORT).show();
 
             }
