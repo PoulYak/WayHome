@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentSettingsBinding;
 import com.example.wayhome.ui.Person;
+import com.example.wayhome.ui.additionals.feedback.FeedbackViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,10 +34,10 @@ import java.util.Objects;
 public class SettingsFragment extends Fragment {
     FragmentSettingsBinding binding;
     Toolbar toolbar;
-    boolean haveMenu = false;
     FirebaseAuth mAuth;
     DatabaseReference usersRef;
     Person person;
+    SettingsViewModel viewModel;
 
 
 
@@ -45,7 +47,8 @@ public class SettingsFragment extends Fragment {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         mAuth= FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference("Users");
-
+        viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+        binding.setViewModel(viewModel);
         return binding.getRoot();
     }
     private void setUpViews(String uid){
@@ -54,9 +57,12 @@ public class SettingsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     person = dataSnapshot.getValue(Person.class);
-                    binding.edit1.setText(person.getName());
-                    binding.edit2.setText(person.getPhone());
-                    binding.edit3.setText(person.getEmail());
+                    viewModel.setName(person.getName());
+                    viewModel.setEmail(person.getEmail());
+                    viewModel.setPhone(person.getPhone());
+                    binding.edit1.setText(viewModel.getName().getValue());
+                    binding.edit2.setText(viewModel.getPhone().getValue());
+                    binding.edit3.setText(viewModel.getEmail().getValue());
                     if (person.getIs_toggle()==1)
                         binding.materialSwitch.setChecked(true);
 
@@ -82,7 +88,7 @@ public class SettingsFragment extends Fragment {
             switch (item.getItemId()){
                 case (R.id.saveProfile):
                     toolbar.getMenu().clear();
-                    haveMenu= false;
+                    viewModel.setHaveMenu(false);
                     person.setIs_toggle(binding.materialSwitch.isChecked()?1:0);
                     person.setPhone(binding.edit2.getText().toString());
                     person.setName(binding.edit1.getText().toString());
@@ -94,10 +100,6 @@ public class SettingsFragment extends Fragment {
         });
 
     }
-
-
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -118,16 +120,16 @@ public class SettingsFragment extends Fragment {
 
 
     public void activateCheck(){
-        if (!person.getPhone().equals(binding.edit2.getText().toString()) || !person.getName().equals(binding.edit1.getText().toString()) || person.getIs_toggle()!=(binding.materialSwitch.isChecked()?1:0)) {
-            if (!haveMenu){
+        if (!viewModel.getPhone().getValue().equals(binding.edit2.getText().toString()) || !person.getName().equals(binding.edit1.getText().toString()) || person.getIs_toggle()!=(binding.materialSwitch.isChecked()?1:0)) {
+            if (Boolean.FALSE.equals(viewModel.isHaveMenu().getValue())){
                 toolbar.inflateMenu(R.menu.temp_menu);
-                haveMenu=true;
+                viewModel.setHaveMenu(true);
 
             }
         }
         else{
             toolbar.getMenu().clear();
-            haveMenu=false;
+            viewModel.setHaveMenu(false);
         }
 
     }
