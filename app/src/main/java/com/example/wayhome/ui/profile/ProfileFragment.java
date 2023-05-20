@@ -28,15 +28,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
     FragmentProfileBinding binding;
     RecyclerAdapter recyclerAdapter;
-    private AppDatabase appDatabase;
-    DatabaseReference fireDatabase;
     ProfileViewModel viewModel;
-
-    private ArrayList<MyMy> arrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +41,6 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         recyclerAdapter = new RecyclerAdapter(); //todo
-        fireDatabase = FirebaseDatabase.getInstance().getReference("Pets");
         binding.recyclerView.setAdapter(recyclerAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
@@ -55,33 +51,18 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        subscribeToItemList();
-        updateFeed();
+        subscribeToHomeItemList();
     }
 
-    private void updateFeed() {
-        fireDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                viewModel.updateData(snapshot);
-            }
 
+    private void subscribeToHomeItemList() {
+        viewModel.getHomeItemList().observe(getViewLifecycleOwner(), new Observer<List<MyMy>>() {
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void subscribeToItemList() {
-        viewModel.getItemList().observe(getViewLifecycleOwner(), new Observer<ArrayList<MyMy>>() {
-            @Override
-            public void onChanged(ArrayList<MyMy> arrayList) {
-                recyclerAdapter.setData(arrayList);
+            public void onChanged(List<MyMy> homeItems) {
+                recyclerAdapter.setData((ArrayList<MyMy>) homeItems);
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(() -> recyclerAdapter.notifyDataSetChanged());
             }
-
         });
     }
 }

@@ -39,15 +39,11 @@ public class HomeFragment extends Fragment implements LifecycleOwner {
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        recyclerAdapter = new RecyclerAdapter(); //todo
-//        fireDatabase = FirebaseDatabase.getInstance().getReference("Pets");
+        recyclerAdapter = new RecyclerAdapter();
         binding.recyclerView.setAdapter(recyclerAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding.setViewModel(viewModel);
-
-
-
         return binding.getRoot();
 
     }

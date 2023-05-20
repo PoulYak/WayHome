@@ -31,13 +31,4 @@ public class HomeViewModel extends ViewModel {
         return homeItemList;
     }
 
-//    public void updateData(DataSnapshot snapshot){
-//        ArrayList<MyMy> arrayList = new ArrayList<>();
-//        for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-//            MyMy u = dataSnapshot.getValue(MyMy.class);
-//            arrayList.add(u);
-//        }
-//        itemList.setValue(arrayList);
-//
-//    }
 }
