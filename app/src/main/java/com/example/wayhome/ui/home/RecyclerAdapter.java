@@ -36,6 +36,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     }
 
+    public RecyclerAdapter() {
+        this.arrayList = new ArrayList<>();
+    }
+
+    public void setData(ArrayList<MyMy> arrayList){
+        this.arrayList=arrayList;
+    }
+
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,7 +59,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         MyMy post = arrayList.get(position);
 
         pm = holder.postImage;
-
 
 
         String path = post.getImage_path();

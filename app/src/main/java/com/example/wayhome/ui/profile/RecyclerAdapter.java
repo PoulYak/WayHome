@@ -24,6 +24,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     }
 
+    public RecyclerAdapter() {
+        this.arrayList = new ArrayList<>();
+    }
+
+    public void setData(ArrayList<MyMy> arrayList){
+        this.arrayList=arrayList;
+    }
 
 
     @NonNull

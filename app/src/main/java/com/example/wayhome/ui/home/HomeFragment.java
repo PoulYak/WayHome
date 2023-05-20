@@ -27,11 +27,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment implements LifecycleOwner {
     FragmentHomeBinding binding;
     DatabaseReference fireDatabase;
-    private ArrayList<MyMy> arrayList;
     RecyclerAdapter recyclerAdapter;
     HomeViewModel viewModel;
 
@@ -40,14 +40,13 @@ public class HomeFragment extends Fragment implements LifecycleOwner {
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        arrayList = new ArrayList<>();
-
-        recyclerAdapter = new RecyclerAdapter(arrayList);
+        recyclerAdapter = new RecyclerAdapter(); //todo
         fireDatabase = FirebaseDatabase.getInstance().getReference("Pets");
         binding.recyclerView.setAdapter(recyclerAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding.setViewModel(viewModel);
+
 
 
         return binding.getRoot();
@@ -57,19 +56,15 @@ public class HomeFragment extends Fragment implements LifecycleOwner {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        subscribeToItemList();
+        updateFeed();
+    }
+
+    private void updateFeed() {
         fireDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                new Thread(() -> {
-                    arrayList.clear();
-                    for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                        MyMy u = dataSnapshot.getValue(MyMy.class);
-                        arrayList.add(u);
-                    }
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(() -> recyclerAdapter.notifyDataSetChanged());
-                }).start();
-
+                viewModel.updateData(snapshot);
             }
 
             @Override
@@ -79,4 +74,15 @@ public class HomeFragment extends Fragment implements LifecycleOwner {
         });
     }
 
+    private void subscribeToItemList() {
+        viewModel.getItemList().observe(getViewLifecycleOwner(), new Observer<ArrayList<MyMy>>() {
+            @Override
+            public void onChanged(ArrayList<MyMy> arrayList) {
+                recyclerAdapter.setData(arrayList);
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(() -> recyclerAdapter.notifyDataSetChanged());
+            }
+
+        });
+    }
 }

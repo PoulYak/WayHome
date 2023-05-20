@@ -1,5 +1,4 @@
-package com.example.wayhome.ui.home;
-
+package com.example.wayhome.ui.profile;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -15,11 +14,11 @@ import com.google.firebase.database.DataSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeViewModel extends ViewModel {
+public class ProfileViewModel extends ViewModel {
     private MutableLiveData<ArrayList<MyMy>> itemList;
 
 
-    public HomeViewModel() {
+    public ProfileViewModel() {
         itemList = new MutableLiveData<>();
     }
     public LiveData<ArrayList<MyMy>> getItemList() {
