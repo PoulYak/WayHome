@@ -45,6 +45,16 @@ public class MyMy {
     private String image_path = "";
     @ColumnInfo(name = "placeComment")
     private String placeComment = "";
+    @ColumnInfo(name = "owner_mail")
+    private String owner_mail = "";
+
+    public String getOwner_mail() {
+        return owner_mail;
+    }
+
+    public void setOwner_mail(String owner_mail) {
+        this.owner_mail = owner_mail;
+    }
 
     public int getRoomId() {
         return roomId;

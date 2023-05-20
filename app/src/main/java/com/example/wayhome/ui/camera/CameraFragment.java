@@ -23,6 +23,7 @@ import com.example.wayhome.R;
 import com.example.wayhome.databinding.FragmentCameraBinding;
 import com.example.wayhome.data.room.MyMy;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.map.CameraListener;
 import com.yandex.mapkit.map.CameraPosition;
@@ -39,6 +40,7 @@ public class CameraFragment extends Fragment {
     FragmentCameraBinding binding;
     ActivityResultLauncher<Uri> takePictureLauncher;
     CameraViewModel viewModel;
+    FirebaseAuth mAuth;
 
 
 
@@ -47,7 +49,7 @@ public class CameraFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentCameraBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(CameraViewModel.class);
-
+        mAuth = FirebaseAuth.getInstance();
         binding.setViewModel(viewModel);
         return binding.getRoot();
     }
@@ -133,6 +135,7 @@ public class CameraFragment extends Fragment {
                 m.setComment(Objects.requireNonNull(binding.edit7.getText()).toString());
                 m.setFeatures(Objects.requireNonNull(binding.edit8.getText()).toString());
                 m.setStigma_number(stigma_s);
+                m.setOwner_mail(mAuth.getCurrentUser().getEmail());
 
 //            Toast.makeText(requireContext(), String.valueOf(binding.edit0.getCheckedButtonId()), Toast.LENGTH_SHORT).show();
 

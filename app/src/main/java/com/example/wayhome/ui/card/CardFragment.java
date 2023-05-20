@@ -43,7 +43,6 @@ import java.util.Objects;
 
 public class CardFragment extends Fragment {
     FragmentCardBinding binding;
-    private Point TARGET_LOCATION = new Point(59.845933, 30.320045);
     DatabaseReference petsRef;
 
 
@@ -132,7 +131,7 @@ public class CardFragment extends Fragment {
     }
 
     private void setUpMap(double longitude, double latitude){
-        TARGET_LOCATION = new Point(latitude, longitude);
+        Point TARGET_LOCATION = new Point(latitude, longitude);
         binding.mapview.getMap().move(
                 new CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),

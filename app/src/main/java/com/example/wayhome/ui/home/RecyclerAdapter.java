@@ -1,5 +1,6 @@
 package com.example.wayhome.ui.home;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.wayhome.R;
 import com.example.wayhome.data.room.MyMy;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,14 +32,12 @@ import java.util.Objects;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     ImageView pm;
+    Context context;
     private ArrayList<MyMy> arrayList;
-    public RecyclerAdapter(ArrayList<MyMy> arrayList){
-        this.arrayList=arrayList;
 
-    }
-
-    public RecyclerAdapter() {
+    public RecyclerAdapter(Context context) {
         this.arrayList = new ArrayList<>();
+        this.context = context;
     }
 
     public void setData(ArrayList<MyMy> arrayList){
@@ -65,6 +65,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         if (Objects.equals(path, ""))
             return;
         StorageReference imageRef = FirebaseStorage.getInstance().getReference(path);
+        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(context)
+                        .load(uri.toString())
+                        .apply(new RequestOptions().placeholder(R.drawable.pets))
+                        .into(holder.postImage);
+            }
+        });
+
+
+//        imageRef.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(pm).load(uri.toString()).into(pm))
+
+
+
+
 //        new Thread(() -> imageRef.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(pm).load(uri.toString()).into(pm))).start();
 
 //        imageRef.getDownloadUrl().addOnSuccessListener(uri -> pm.setImageURI(uri));

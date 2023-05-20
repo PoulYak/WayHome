@@ -23,9 +23,9 @@ public class ProfileViewModel extends ViewModel {
     public ProfileViewModel() {
         homeRepository = new HomeRepository();
     }
-    public LiveData<List<MyMy>> getHomeItemList() {
+    public LiveData<List<MyMy>> getMyItemList(String email) {
         if (homeItemList == null) {
-            homeItemList = homeRepository.getHomeItemList();
+            homeItemList = homeRepository.getMyItemList(email);
         }
         return homeItemList;
     }

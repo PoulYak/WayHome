@@ -21,6 +21,7 @@ import com.example.wayhome.databinding.FragmentHomeBinding;
 import com.example.wayhome.databinding.FragmentProfileBinding;
 import com.example.wayhome.data.room.MyMy;
 import com.example.wayhome.ui.home.HomeViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,12 +35,13 @@ public class ProfileFragment extends Fragment {
     FragmentProfileBinding binding;
     RecyclerAdapter recyclerAdapter;
     ProfileViewModel viewModel;
+    FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-
+        mAuth = FirebaseAuth.getInstance();
         recyclerAdapter = new RecyclerAdapter(); //todo
         binding.recyclerView.setAdapter(recyclerAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -56,7 +58,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void subscribeToHomeItemList() {
-        viewModel.getHomeItemList().observe(getViewLifecycleOwner(), new Observer<List<MyMy>>() {
+        viewModel.getMyItemList(mAuth.getCurrentUser().getEmail()).observe(getViewLifecycleOwner(), new Observer<List<MyMy>>() {
             @Override
             public void onChanged(List<MyMy> homeItems) {
                 recyclerAdapter.setData((ArrayList<MyMy>) homeItems);
