@@ -1,4 +1,4 @@
-package com.example.wayhome.ui.additionals;
+package com.example.wayhome.ui.additionals.settings;
 
 import android.os.Bundle;
 

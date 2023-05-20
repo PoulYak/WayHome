@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.wayhome.ui.additionals.feedback.FeedbackViewModel" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.additionals.FeedBackFragment">
+    tools:context=".ui.additionals.feedback.FeedBackFragment">
     <com.google.android.material.appbar.AppBarLayout
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/appBarLayout"
@@ -93,3 +99,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

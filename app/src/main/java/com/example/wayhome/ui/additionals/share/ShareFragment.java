@@ -1,4 +1,4 @@
-package com.example.wayhome.ui.additionals;
+package com.example.wayhome.ui.additionals.share;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.wayhome.R;
-import com.example.wayhome.databinding.FragmentCameraBinding;
 import com.example.wayhome.databinding.FragmentShareBinding;
 
 

@@ -1,5 +1,7 @@
 package com.example.wayhome.ui.profile;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,21 +13,25 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.wayhome.R;
 import com.example.wayhome.data.room.MyMy;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private ArrayList<MyMy> arrayList;
-    public RecyclerAdapter(ArrayList<MyMy> arrayList){
-        this.arrayList=arrayList;
+    Context context;
 
-    }
-
-    public RecyclerAdapter() {
+    public RecyclerAdapter(Context context) {
         this.arrayList = new ArrayList<>();
+        this.context = context;
     }
 
     public void setData(ArrayList<MyMy> arrayList){
@@ -54,6 +60,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             Bundle args = new Bundle();
             args.putString("petId", post.getId());
             Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_cardFragment, args);
+        });
+
+
+
+        String path = post.getImage_path();
+        if (Objects.equals(path, ""))
+            return;
+        StorageReference imageRef = FirebaseStorage.getInstance().getReference(path);
+        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(context)
+                        .load(uri.toString())
+                        .apply(new RequestOptions().placeholder(R.drawable.pets)).fitCenter()
+                        .into(holder.postImage);
+            }
         });
 
     }

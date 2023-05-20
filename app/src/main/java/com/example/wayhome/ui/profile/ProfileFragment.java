@@ -42,7 +42,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         mAuth = FirebaseAuth.getInstance();
-        recyclerAdapter = new RecyclerAdapter(); //todo
+        recyclerAdapter = new RecyclerAdapter(requireContext()); //todo
         binding.recyclerView.setAdapter(recyclerAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);

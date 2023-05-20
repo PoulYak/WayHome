@@ -41,68 +41,6 @@ public class AuthenticationStep1Fragment extends Fragment {
     FragmentAuthenticationStep1Binding mBinding;
 
 
-//    public AuthenticationStep1Fragment() {
-//        // Required empty public constructor
-//    }
-//
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//    }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        mBinding = FragmentAuthenticationStep1Binding.inflate(inflater, container, false);
-//        return mBinding.getRoot();
-//    }
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        addMask();
-//        setOnClickListener();
-//    }
-//
-//    private boolean isBadNumber(String number) {
-//        if (TextUtils.isEmpty(number)) return true;
-//        Pattern pattern = Pattern.compile("[^0-9]*");
-//
-//        Matcher matcher = pattern.matcher(number);
-//        if (matcher.replaceAll("").length() != 11)
-//            return true;
-//        return false;
-//    }
-//
-//    private void addMask(){
-//        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("+7 (___) ___-__-__");
-//        FormatWatcher formatWatcher = new MaskFormatWatcher( // форматировать текст будет вот он
-//                MaskImpl.createTerminated(slots)
-//        );
-//        formatWatcher.installOn(mBinding.textInput);
-//    }
-//
-//    private void setOnClickListener(){
-//        mBinding.nextButton.setOnClickListener(v -> {
-//
-//            String number_str = String.valueOf(mBinding.textInput.getText());
-//
-//            if (isBadNumber(number_str)) {
-//                Toast.makeText(getActivity(), "Неправильно набран номер", Toast.LENGTH_SHORT).show();
-//            } else {
-//                // Переходим к отправке кода
-//                Bundle bundle = new Bundle();
-//                bundle.putString("myData", Objects.requireNonNull(mBinding.textInput.getText()).toString());
-//                Navigation.findNavController(v).navigate(R.id.action_authenticationStep1Fragment_to_authenticationStep2Fragment2, bundle);
-//            }
-//        });
-//
-//
-//
-//
-//    }
-
     private FirebaseAuth mAuth;
 
     @Override

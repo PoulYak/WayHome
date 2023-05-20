@@ -70,22 +70,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onSuccess(Uri uri) {
                 Glide.with(context)
                         .load(uri.toString())
-                        .apply(new RequestOptions().placeholder(R.drawable.pets))
+                        .apply(new RequestOptions().placeholder(R.drawable.pets)).fitCenter()
                         .into(holder.postImage);
             }
         });
-
-
-//        imageRef.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(pm).load(uri.toString()).into(pm))
-
-
-
-
-//        new Thread(() -> imageRef.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(pm).load(uri.toString()).into(pm))).start();
-
-//        imageRef.getDownloadUrl().addOnSuccessListener(uri -> pm.setImageURI(uri));
-
-
 
         holder.message.setText(post.getStatus());
         holder.title.setText(post.getNickname());

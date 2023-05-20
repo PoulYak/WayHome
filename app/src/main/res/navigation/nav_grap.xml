@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/shareFragment"
-        android:name="com.example.wayhome.ui.additionals.ShareFragment"
+        android:name="com.example.wayhome.ui.additionals.share.ShareFragment"
         android:label="fragment_share"
         tools:layout="@layout/fragment_share" >
         <action
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/feedBackFragment"
-        android:name="com.example.wayhome.ui.additionals.FeedBackFragment"
+        android:name="com.example.wayhome.ui.additionals.feedback.FeedBackFragment"
         android:label="Поддержка"
         tools:layout="@layout/fragment_feed_back">
         <action
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.wayhome.ui.additionals.SettingsFragment"
+        android:name="com.example.wayhome.ui.additionals.settings.SettingsFragment"
         android:label="Настройки"
         tools:layout="@layout/fragment_settings">
         <action

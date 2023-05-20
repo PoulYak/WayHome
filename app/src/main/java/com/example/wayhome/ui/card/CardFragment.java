@@ -44,6 +44,7 @@ import java.util.Objects;
 public class CardFragment extends Fragment {
     FragmentCardBinding binding;
     DatabaseReference petsRef;
+    String shareText = "";
 
 
     @Override
@@ -68,7 +69,7 @@ public class CardFragment extends Fragment {
         binding.layoutShare.setOnClickListener(v -> {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT,"Пропал султан"); //todo text for sharing
+            sendIntent.putExtra(Intent.EXTRA_TEXT,shareText); //todo text for sharing
             sendIntent.setType("text/plain");
             Intent.createChooser(sendIntent,"Share via");
             startActivity(sendIntent);
@@ -118,6 +119,7 @@ public class CardFragment extends Fragment {
 
                     setUpMap(m.getLongitude(), m.getLatitude());
                     setUpPhoto(m.getImage_path());
+                    shareText = m.getNickname()+" пропал, если вдруг увидешь, звони "+m.getPhone_number();
                 } else {
                     // Object with the specified ID does not exist
                 }

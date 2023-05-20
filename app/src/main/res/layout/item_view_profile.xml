@@ -14,7 +14,8 @@
         <ImageView
             android:background="@drawable/layout_bg3"
             android:id="@+id/ivPost"
-            android:layout_width="100dp"
+            android:paddingVertical="4dp"
+            android:layout_width="200dp"
             android:layout_height="200dp"
             android:src="@drawable/pets"
             app:layout_constraintTop_toTopOf="parent" />
