@@ -71,7 +71,6 @@ public class MapFragment extends Fragment {
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     FragmentMapBinding binding;
     private MapViewModel viewModel;
-    DatabaseReference petRefs;
     MapObjectCollection mapObjects;
     static String TAG = "LOCATION";
 
@@ -82,7 +81,6 @@ public class MapFragment extends Fragment {
         binding = FragmentMapBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(MapViewModel.class);
         binding.setViewModel(viewModel);
-        petRefs = FirebaseDatabase.getInstance().getReference("Pets");
         return binding.getRoot();
     }
 
@@ -94,24 +92,7 @@ public class MapFragment extends Fragment {
             viewModel.setFirstTime(true);
             getDeviceLocation();
         }
-        petRefs.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<MyMy> arrayList = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    MyMy m = dataSnapshot.getValue(MyMy.class);
-                    arrayList.add(m);
-                }
-                viewModel.updateLocationData(arrayList);
 
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         subscribeToLocationDataList();
         restoreMapState();
 
@@ -119,7 +100,7 @@ public class MapFragment extends Fragment {
 
 
     private void subscribeToLocationDataList() {
-        binding.getViewModel().getLocationDataList().observe(getViewLifecycleOwner(), new Observer<List<MyMy>>() {
+        binding.getViewModel().getHomeItemList().observe(getViewLifecycleOwner(), new Observer<List<MyMy>>() {
             @Override
             public void onChanged(List<MyMy> locationDataList) {
                 // Очищаем карту от предыдущих маркеров

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.wayhome.data.repository.HomeRepository;
 import com.example.wayhome.data.room.MyMy;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
@@ -20,6 +21,12 @@ public class MapViewModel extends ViewModel {
     private MutableLiveData<List<MyMy>> locationDataList;
     private MutableLiveData<CameraPosition> cameraPosition;
     private MutableLiveData<Boolean> firstTime;
+    private LiveData<List<MyMy>> homeItemList;
+    private HomeRepository homeRepository;
+
+    public MapViewModel() {
+        homeRepository = new HomeRepository();
+    }
 
     public LiveData<List<MyMy>> getLocationDataList() {
         if (locationDataList == null) {
@@ -61,5 +68,13 @@ public class MapViewModel extends ViewModel {
     }
     public void updateLocationData(List<MyMy> data) {
         locationDataList.setValue(data);
+    }
+
+
+    public LiveData<List<MyMy>> getHomeItemList() {
+        if (homeItemList == null) {
+            homeItemList = homeRepository.getHomeItemList();
+        }
+        return homeItemList;
     }
 }
