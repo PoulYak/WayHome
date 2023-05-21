@@ -51,8 +51,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MyMy post = arrayList.get(position);
-
-//        holder.postImage.setImageResource(post.getPostImage());
+        if (post.getActive()!=null  && post.getActive().equals("true"))
+            holder.archived.setVisibility(View.INVISIBLE);
         holder.breed.setText(post.getBreed());
         holder.nickname.setText(post.getNickname());
         holder.status.setText(post.getStatus());
@@ -91,6 +91,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         TextView nickname;
         TextView breed;
         TextView status;
+        TextView archived;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -99,6 +100,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             postImage = itemView.findViewById(R.id.ivPost);
             nickname = itemView.findViewById(R.id.name);
             breed = itemView.findViewById(R.id.breed);
+            archived = itemView.findViewById(R.id.tvArchived);
         }
     }
 

@@ -300,6 +300,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:text="+7 ("
                     android:id="@+id/edit13"
                     style="@style/My.Body1"
                     android:layout_width="match_parent"

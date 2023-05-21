@@ -39,6 +39,7 @@ public class HomeRepository {
     }
 
     private void loadHomeItems() {
+        Query query = databaseRef.orderByChild("active").equalTo("true");
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -56,7 +57,7 @@ public class HomeRepository {
             }
         };
 
-        databaseRef.addValueEventListener(valueEventListener);
+        query.addValueEventListener(valueEventListener);
     }
 
     private void loadMyItems(String email) {

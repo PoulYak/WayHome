@@ -47,6 +47,17 @@ public class MyMy {
     private String placeComment = "";
     @ColumnInfo(name = "owner_mail")
     private String owner_mail = "";
+    @ColumnInfo(name = "active")
+    private String active = "true";
+
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
 
     public String getOwner_mail() {
         return owner_mail;

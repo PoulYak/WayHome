@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.InputFilter;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +34,19 @@ import com.yandex.mapkit.map.Map;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import ru.tinkoff.decoro.MaskImpl;
+import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
+import ru.tinkoff.decoro.slots.Slot;
+import ru.tinkoff.decoro.watchers.FormatWatcher;
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 public class CameraFragment extends Fragment {
 
-    private static final int CAMERA_PERMISSION_CODE = 1;
     private static final int PICK_IMAGE_REQUEST = 1;
     FragmentCameraBinding binding;
-    ActivityResultLauncher<Uri> takePictureLauncher;
     CameraViewModel viewModel;
     FirebaseAuth mAuth;
 
@@ -61,7 +69,7 @@ public class CameraFragment extends Fragment {
         PhotoRecyclerAdapter recyclerAdapter = new PhotoRecyclerAdapter(viewModel.getPhotos());
         binding.recyclerView.setAdapter(recyclerAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-
+        addMask();
 
         if (viewModel.isActive()){
             if (viewModel.isPhoto())
@@ -104,9 +112,6 @@ public class CameraFragment extends Fragment {
 
         binding.btnTakePicture.setOnClickListener(v -> {
             openFileChooser();
-//            viewModel.addPhoto(new Photo(createUri(0)));
-//            recyclerAdapter.notifyItemInserted(viewModel.getSize()-1);
-//            checkCameraPermissi.onAndOpenCamera();
         });
 
         binding.nextBtn.setOnClickListener(v -> {
@@ -136,7 +141,7 @@ public class CameraFragment extends Fragment {
                 m.setFeatures(Objects.requireNonNull(binding.edit8.getText()).toString());
                 m.setStigma_number(stigma_s);
                 m.setOwner_mail(mAuth.getCurrentUser().getUid());
-
+                m.setActive("true");
 //            Toast.makeText(requireContext(), String.valueOf(binding.edit0.getCheckedButtonId()), Toast.LENGTH_SHORT).show();
 
                 viewModel.uploadFile(requireContext(), requireActivity());
@@ -214,6 +219,13 @@ public class CameraFragment extends Fragment {
 
         }
     }
+    private void addMask(){
+        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("+7 (___) ___-__-__");
+        FormatWatcher formatWatcher = new MaskFormatWatcher( // форматировать текст будет вот он
+                MaskImpl.createTerminated(slots)
+        );
+        formatWatcher.installOn(binding.edit13);
+    }
 
 
 
@@ -256,49 +268,15 @@ public class CameraFragment extends Fragment {
 
     }
 
+    private boolean isBadNumber(String number){
+        if (TextUtils.isEmpty(number)) return true;
+        Pattern pattern = Pattern.compile("[^0-9]*");
 
+        Matcher matcher = pattern.matcher(number);
+        if (matcher.replaceAll("").length()!=11)
+            return true;
+        return false;
 
-
-    //    private void registerPictureLauncher() {
-//        takePictureLauncher = registerForActivityResult(
-//                new ActivityResultContracts.TakePicture(),
-//                result -> {
-//                    try {
-//                        if (result) {
-//                            Photo p = new Photo(viewModel.getImageUriLast());
-//                            arrayList.add(p);
-//                            viewModel.setActive(true);
-//
-//                        }
-//                    } catch (Exception exception) {
-//                        exception.getStackTrace();
-//                    }
-//                }
-//        );
-//    }
-
-//    private void checkCameraPermissionAndOpenCamera() {
-//        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(requireActivity(),
-//                    new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
-//        } else {
-//            takePictureLauncher.launch(viewModel.getImageUriLast());
-//            viewModel.setActive(true);
-//
-//        }
-//    }
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == CAMERA_PERMISSION_CODE) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                takePictureLauncher.launch(viewModel.getImageUriLast());
-//                viewModel.setActive(true);
-//            }
-//            else
-//                Toast.makeText(requireContext(), "Camera permission denied, please allow permission to take a photo", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    }
 
 }
