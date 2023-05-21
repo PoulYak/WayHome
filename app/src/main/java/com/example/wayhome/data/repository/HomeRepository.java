@@ -1,5 +1,7 @@
 package com.example.wayhome.data.repository;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,12 +15,24 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HomeRepository {
     private MutableLiveData<List<MyMy>> homeItemList;
     private MutableLiveData<List<MyMy>> myItemList;
+    private MutableLiveData<HashMap<String, MyMy>> petDict;
     private DatabaseReference databaseRef;
+
+    public LiveData<HashMap<String, MyMy>> getPetDict() {
+        if (petDict == null) {
+            petDict = new MutableLiveData<>();
+            databaseRef = FirebaseDatabase.getInstance().getReference("Pets");
+            loadAllItems();
+        }
+
+        return petDict;
+    }
 
     public LiveData<List<MyMy>> getHomeItemList() {
         if (homeItemList == null) {
@@ -58,6 +72,29 @@ public class HomeRepository {
         };
 
         query.addValueEventListener(valueEventListener);
+    }
+
+    private void loadAllItems() {
+        Query query = databaseRef;
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String, MyMy> items = new HashMap<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    MyMy item = snapshot.getValue(MyMy.class);
+                    items.put(item.getId(), item);
+                }
+                petDict.setValue(items);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Обработка ошибок при загрузке данных из Firebase
+            }
+        };
+
+        query.addValueEventListener(valueEventListener);
+
     }
 
     private void loadMyItems(String email) {
