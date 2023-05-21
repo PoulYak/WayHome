@@ -15,28 +15,28 @@
 Фильтры по всем характеристикам собаки из профиля Объявление о потеряшке
 
 ### UserFlow
-![](photos/UserFlow.png)
+<img src="photos/UserFlow.png" width="300">
 
 ### Обзор
 #### Регистрация
 Логин-Пароль
 
-<img src="photos/Screenshot_2023-05-21-21-39-57-581_com.example.wayhome-edit.jpg" width="500">
+<img src="photos/Screenshot_2023-05-21-21-39-57-581_com.example.wayhome-edit.jpg" width="200">
 
 #### Лента потеряшек и список своих объявлений
-![](photos/IMG_20230521_215241.jpg) ![](photos/Screenshot_2023-05-21-21-52-57-268_com.example.wayhome-edit.jpg)
+<img src="photos/IMG_20230521_215241.jpg" width="200"> <img src="photos/Screenshot_2023-05-21-21-52-57-268_com.example.wayhome-edit.jpg" width="200">
 
 #### Карта потеряшек
-![](photos/Screenshot_2023-05-21-21-53-18-353_com.example.wayhome-edit.jpg)
+<img src="photos/Screenshot_2023-05-21-21-53-18-353_com.example.wayhome-edit.jpg" width="200">
 
 #### Добавление новой потеряшки
-![](photos/Screenshot_2023-05-21-21-53-36-384_com.example.wayhome-edit.jpg) ![](photos/Screenshot_2023-05-21-21-53-50-157_com.example.wayhome-edit.jpg)
+<img src="photos/Screenshot_2023-05-21-21-53-36-384_com.example.wayhome-edit.jpg" width="200"> <img src="photos/Screenshot_2023-05-21-21-53-50-157_com.example.wayhome-edit.jpg" width="200">
 
 #### Карточка питомца
-![](photos/Screenshot_2023-05-21-21-57-44-701_com.example.wayhome-edit.jpg) ![](photos/Screenshot_2023-05-21-21-57-57-654_com.example.wayhome-edit.jpg)
+<img src="photos/Screenshot_2023-05-21-21-57-44-701_com.example.wayhome-edit.jpg" width="200"> <img src="photos/Screenshot_2023-05-21-21-57-57-654_com.example.wayhome-edit.jpg" width="200">
 
 #### Профиль
-![](photos/Screenshot_2023-05-21-21-54-27-647_com.example.wayhome-edit.jpg)
+<img src="photos/Screenshot_2023-05-21-21-54-27-647_com.example.wayhome-edit.jpg" width="200">
 
 #### Обратная связь
-![](photos/Screenshot_2023-05-21-21-57-08-640_com.example.wayhome-edit.jpg)
+<img src="photos/Screenshot_2023-05-21-21-57-08-640_com.example.wayhome-edit.jpg" width="200">
