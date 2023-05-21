@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModel;
 public class MapViewModel extends ViewModel {
     private MutableLiveData<List<MyMy>> locationDataList;
     private MutableLiveData<CameraPosition> cameraPosition;
+    private MutableLiveData<Boolean> firstTime;
 
     public LiveData<List<MyMy>> getLocationDataList() {
         if (locationDataList == null) {
@@ -38,6 +39,19 @@ public class MapViewModel extends ViewModel {
     public void setCameraPosition(CameraPosition position) {
         if (cameraPosition != null) {
             cameraPosition.setValue(position);
+        }
+    }
+
+    public LiveData<Boolean> getFirstTime() {
+        if (firstTime == null) {
+            firstTime = new MutableLiveData<>();
+        }
+        return firstTime;
+    }
+
+    public void setFirstTime(boolean val) {
+        if (firstTime != null) {
+            firstTime.setValue(val);
         }
     }
 
