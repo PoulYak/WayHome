@@ -23,7 +23,7 @@
 ![](photos/Screenshot_2023-05-21-21-39-57-581_com.example.wayhome-edit.jpg)
 
 #### Лента потеряшек и список своих объявлений
-![](photos/IMG_20230521_215241.jpg) ![](photos/Screenshot_2023-05-21-21-52-57-268_com.example.wayhome-edit.jpg)
+![](photos/IMG_20230521_215241.jpg) ![](photos/Screenshot_2023-05-21-21-52-57-268_com.example.wayhome-edit1.jpg)
 
 #### Карта потеряшек
 ![](photos/Screenshot_2023-05-21-21-53-18-353_com.example.wayhome-edit.jpg)
