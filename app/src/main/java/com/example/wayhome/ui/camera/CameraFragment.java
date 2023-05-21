@@ -56,8 +56,8 @@ public class CameraFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCameraBinding.inflate(inflater, container, false);
-        viewModel = new ViewModelProvider(this).get(CameraViewModel.class);
         mAuth = FirebaseAuth.getInstance();
+        viewModel = new ViewModelProvider(this).get(CameraViewModel.class);
         binding.setViewModel(viewModel);
         return binding.getRoot();
     }
@@ -66,9 +66,6 @@ public class CameraFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.mapView.getMap().addCameraListener(cameraListener);
-        PhotoRecyclerAdapter recyclerAdapter = new PhotoRecyclerAdapter(viewModel.getPhotos());
-        binding.recyclerView.setAdapter(recyclerAdapter);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         addMask();
 
         if (viewModel.isActive()){
@@ -76,13 +73,9 @@ public class CameraFragment extends Fragment {
                 binding.ivSuccess.setVisibility(View.VISIBLE);
             if (viewModel.isMap())
                 binding.ivSuccess2.setVisibility(View.VISIBLE);
-
-            //checkImagesAndSetThem
-//            binding.ivUser.setImageURI(viewModel.getImageUri());
         }
         else{
             viewModel.setActive(true);
-//            viewModel.clearImages();
         }
 
 //        viewModel.addPhoto(new Photo(createUri(0)));
@@ -118,12 +111,13 @@ public class CameraFragment extends Fragment {
             if (checkEdits()){
                 String name_s = Objects.requireNonNull(binding.edit1.getText()).toString();
 
-                String sex_s = (binding.edit2.getCheckedButtonId()==R.id.button21)?"Мальчик":"Девочка";
-                String collar_s = (binding.edit15.getCheckedButtonId()==R.id.button150)?"В ошейнике":"Без ошейника";
+                String sex_s = (binding.toggleSex.isChecked())?"Мальчик":"Девочка";
+                String collar_s = (binding.toggleCollar.isChecked())?"В ошейнике":"Без ошейника";
                 String birthday_s = Objects.requireNonNull(binding.edit3.getText()).toString();
                 String breed_s = Objects.requireNonNull(binding.edit4.getText()).toString();
                 String color_s = Objects.requireNonNull(binding.edit5.getText()).toString();
-                String status_s = (binding.edit0.getCheckedButtonId()==R.id.button01)?"Потерян":"Найден";
+
+                String status_s = (binding.toggleSex.isChecked())?"Потерян":"Найден";
                 MyMy m = new MyMy(R.drawable.pets, name_s, status_s, breed_s);
                 m.setBirthday(birthday_s);
                 m.setColor(color_s);
@@ -134,7 +128,6 @@ public class CameraFragment extends Fragment {
                 m.setLongitude(viewModel.getLongitude());
                 String chip_s = (!Objects.requireNonNull(binding.edit6.getText()).toString().equals("")?binding.edit6.getText().toString():"-");
                 m.setChip_number(chip_s);
-                m.setPlaceComment(Objects.requireNonNull(binding.edit10.getText()).toString());
                 String stigma_s = (!Objects.requireNonNull(binding.edit14.getText()).toString().equals("")?binding.edit14.getText().toString():"-");
                 m.setPhone_number(Objects.requireNonNull(binding.edit13.getText()).toString());
                 m.setComment(Objects.requireNonNull(binding.edit7.getText()).toString());
@@ -142,15 +135,11 @@ public class CameraFragment extends Fragment {
                 m.setStigma_number(stigma_s);
                 m.setOwner_mail(mAuth.getCurrentUser().getUid());
                 m.setActive("true");
-//            Toast.makeText(requireContext(), String.valueOf(binding.edit0.getCheckedButtonId()), Toast.LENGTH_SHORT).show();
 
                 viewModel.uploadFile(requireContext(), requireActivity());
                 viewModel.insertPet(m);
                 Snackbar.make(view, "Ваша форма успешно отправлена",Snackbar.LENGTH_SHORT).show();
                 resetData();
-
-
-
             }
             else{
                 Snackbar.make(view, "Введены не все данные",Snackbar.LENGTH_SHORT).show();
@@ -168,20 +157,10 @@ public class CameraFragment extends Fragment {
 
 
 
-    private Uri createUri(int numberUri) {
-        File imageFile = new File(requireContext().getFilesDir(), "camera_phot"+numberUri+".jpg");
-        return FileProvider.getUriForFile(
-                requireContext(),
-                "com.example.wayhome.fileProvider",
-                imageFile
-        );
-    }
-
-
     private boolean checkEdits(){
-        if (viewModel.isPhoto() && viewModel.isMap() && binding.edit0.getCheckedButtonId()!=-1
-                && !binding.edit1.getText().toString().isEmpty() &&  binding.edit2.getCheckedButtonId()!=-1 &&
-                !binding.edit3.getText().toString().isEmpty() && !binding.edit13.getText().toString().isEmpty() && binding.edit2.getCheckedButtonId()!=-1)
+        if (viewModel.isPhoto() && viewModel.isMap()
+                && !Objects.requireNonNull(binding.edit1.getText()).toString().isEmpty() &&
+                !Objects.requireNonNull(binding.edit3.getText()).toString().isEmpty() && !Objects.requireNonNull(binding.edit13.getText()).toString().isEmpty() && isGoodNumber(binding.edit13.getText().toString()))
             return true;
         return false;
     }
@@ -196,8 +175,6 @@ public class CameraFragment extends Fragment {
         public void onCameraPositionChanged(@NonNull Map map, @NonNull CameraPosition cameraPosition, @NonNull CameraUpdateReason cameraUpdateReason, boolean b) {
             viewModel.setLatitude(cameraPosition.getTarget().getLatitude());
             viewModel.setLongitude(cameraPosition.getTarget().getLongitude());
-
-
         }
     };
 
@@ -252,9 +229,11 @@ public class CameraFragment extends Fragment {
         viewModel.setPhoto(false);
         binding.ivSuccess.setVisibility(View.GONE);
         binding.ivSuccess2.setVisibility(View.GONE);
-        binding.edit0.clearChecked();
-        binding.edit2.clearChecked();
-        binding.edit15.clearChecked();
+        binding.toggleSex.setChecked(false);
+        binding.toggleFound.setChecked(false);
+        binding.toggleCollar.setChecked(false);
+
+
         binding.edit1.setText("");
         binding.edit3.setText("");
         binding.edit4.setText("");
@@ -264,19 +243,19 @@ public class CameraFragment extends Fragment {
         binding.edit13.setText("");
         binding.edit7.setText("");
         binding.edit8.setText("");
-        binding.edit10.setText("");
 
     }
 
-    private boolean isBadNumber(String number){
+    private boolean isGoodNumber(String number){
+        if (number==null)
+            return false;
         if (TextUtils.isEmpty(number)) return true;
         Pattern pattern = Pattern.compile("[^0-9]*");
 
         Matcher matcher = pattern.matcher(number);
-        if (matcher.replaceAll("").length()!=11)
+        if (matcher.replaceAll("").length()==11)
             return true;
         return false;
-
     }
 
 }

@@ -30,9 +30,6 @@ import java.util.Objects;
 
 public class CameraViewModel extends AndroidViewModel {
     private MutableLiveData<String> mText = new MutableLiveData<>();
-    ArrayList<Uri> imageUries = new ArrayList<>();
-    private ArrayList<Photo> arrayList = new ArrayList<>();
-    private final MyMyRepository petRepository;
     private final MutableLiveData<List<MyMy>> petsLiveData;
     DatabaseReference petsRef;
     public StorageReference storageRef;
@@ -95,14 +92,10 @@ public class CameraViewModel extends AndroidViewModel {
 
     public CameraViewModel(@NonNull Application application) {
         super(application);
-        AppDatabase appDatabase = AppDatabase.getInstance(application);
-        this.petRepository = new MyMyRepository(appDatabase);
         this.petsLiveData = new MutableLiveData<>();
-
         petsRef = FirebaseDatabase.getInstance().getReference("Pets");
+
         storageRef = FirebaseStorage.getInstance().getReference();
-
-
         petsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -117,28 +110,11 @@ public class CameraViewModel extends AndroidViewModel {
         });
     }
 
-//    public void insertPet(Pet pet) {
-//        petRepository.insertPet(pet);
-//    }
-
 
     public void insertPet(MyMy pet) {
         pet.setId("pet"+amountOfPets);
         pet.setImage_path(path);
         petsRef.child(pet.getId()).setValue(pet);
-    }
-
-    public LiveData<List<MyMy>> getPetsByOwnerId(String phone_number) {
-        new Thread(() -> {
-            List<MyMy> pets = petRepository.getPetsByOwnerId(phone_number);
-            petsLiveData.postValue(pets);
-        }).start();
-
-        return petsLiveData;
-    }
-
-    public void clearImages(){
-        imageUries.clear();
     }
 
     public boolean isActive() {
@@ -157,34 +133,11 @@ public class CameraViewModel extends AndroidViewModel {
         mText.setValue(text);
     }
 
-    public void addImageUri(Uri imageUri) {
-        this.imageUries.add(imageUri);
-    }
-
-    public ArrayList<Uri> getImageUri() {
-        return imageUries;
-    }
-
-    public Uri getImageUriLast() {
-        return imageUries.get(imageUries.size()-1);
-    }
-
-
-    public ArrayList<Photo> getPhotos() {
-        return arrayList;
-    }
-
-    public void addPhoto(Photo photo) {
-        arrayList.add(photo);
-    }
-
-    public int getSize() {
-        return arrayList.size();
-    }
-
     public String getPath() {
         return path;
     }
+
+
 
     public void setPath(String path) {
         this.path = path;

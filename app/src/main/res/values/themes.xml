@@ -125,4 +125,8 @@
     <style name="Theme.MyMy.NavbarButtonActive" parent="Theme.MyMy.NavbarButton">
         <item name="iconTint">@color/primary</item>
     </style>
+
+    <style name="Theme.MyMy.ToggleButton" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="android:background">@drawable/l1</item>
+    </style>
 </resources>
