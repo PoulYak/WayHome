@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.wayhome.R;
 import com.example.wayhome.data.room.MyMy;
@@ -23,7 +21,6 @@ import com.example.wayhome.ui.utils.Address;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;

@@ -36,7 +36,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
@@ -184,7 +183,6 @@ public class CardFragment extends Fragment {
         binding.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 MyMy pet = viewModel.getPet().getValue();
                 pet.setActive("false");
                 petsRef.child(pet.getId()).setValue(pet);
