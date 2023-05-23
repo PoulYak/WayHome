@@ -1,6 +1,8 @@
 # WayHome
 Приложение для поиска пропавших животных
 
+[Презентация](https://docs.google.com/presentation/d/1QaOjh68vT4_pAFkIMZVXuPMEJGufJAe-/edit?usp=share_link&ouid=112587626402750342206&rtpof=true&sd=true)
+
 ### Описание
 Приложение, которое позволяет пользователю найти его потеряшку 
 либо вернуть найденыша своему хозяину. 
