@@ -149,9 +149,7 @@ public class CameraViewModel extends AndroidViewModel {
             StorageReference fileRef = storageRef.child(path);
             fileRef.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> {
-                        Toast.makeText(context, "SUCCESS UPLOAD", Toast.LENGTH_SHORT).show();
                     }).addOnFailureListener(e -> {
-                        Toast.makeText(context, "FAIL", Toast.LENGTH_SHORT).show();
                     });
         }else{
             Toast.makeText(context, "No file selected", Toast.LENGTH_SHORT).show();
